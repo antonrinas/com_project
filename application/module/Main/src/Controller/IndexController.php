@@ -3,6 +3,7 @@
 namespace Main\Controller;
 
 use Model\Entity\Comment;
+use \DateTime;
 
 class IndexController extends BaseController
 {
@@ -11,11 +12,12 @@ class IndexController extends BaseController
      */
     public function index()
     {
+        $currentDateTime = new DateTime(date('Y-m-d H:i:s'));
         $comment = new Comment();
         $comment->setUserName('Anton Rinas')
                 ->setContent('комментарий')
-                ->setCreatedAt(date('Y-m-d H:i:s'))
-                ->setUpdatedAt(date('Y-m-d H:i:s'));
+                ->setCreatedAt($currentDateTime)
+                ->setUpdatedAt($currentDateTime);
 
         $this->entityManager->persist($comment);
         $this->entityManager->flush();
