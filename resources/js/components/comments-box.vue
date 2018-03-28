@@ -3,6 +3,7 @@
         <comments-list :comments="comments"></comments-list>
 
         <b-pagination
+                v-if="comments.length > 0"
                 align="center"
                 class="pagination_block"
                 :total-rows="pagination.totalRows"
@@ -36,22 +37,9 @@
         },
         data(){
             return {
-                comments: [
-                    {
-                        id: 1,
-                        user_name: 'Anton Rinas',
-                        content: 'комментарий 1',
-                        created_at: '28.03.2018 23.30'
-                    },
-                    {
-                        id: 2,
-                        user_name: 'Anton Rinas1',
-                        content: 'комментарий 2',
-                        created_at: '28.03.2018 23.50'
-                    },
-                ],
+                comments: [],
                 pagination: {
-                    totalRows: 2,
+                    totalRows: null,
                     page: 1,
                     perPage: 1,
                 },
@@ -74,7 +62,7 @@
                     }
                 }).then(function (response) {
                     if (response.status === 200){
-                        vueInstance.comments = this.decodeValues(response.data.data);
+                        vueInstance.comments = vueInstance.decodeValues(response.data.data);
                         vueInstance.pagination.totalRows = parseInt(response.data.total_rows);
                         vueInstance.pagination.perPage = parseInt(response.data.per_page);
                     } else {
