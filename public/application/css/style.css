@@ -1,0 +1,11 @@
+
+.pagination_block[data-v-4d95e28a] {
+    margin: 1rem 0;
+}
+
+.comment[data-v-31be496f] {
+    margin-top: 0.5rem;
+}
+.comment[data-v-31be496f]:last-of-type {
+    margin-bottom: 0.5rem;
+}
