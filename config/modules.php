@@ -3,4 +3,5 @@
 return [
     'Main',
     'Api',
+    'Model',
 ];

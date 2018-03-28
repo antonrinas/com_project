@@ -2,8 +2,7 @@
 
 namespace Main\Controller;
 
-use Framework\Mvc\Controller\BaseController;
-use Framework\Mvc\Model\ModelFactory;
+use Model\Entity\Comment;
 
 class IndexController extends BaseController
 {
@@ -12,7 +11,16 @@ class IndexController extends BaseController
      */
     public function index()
     {
-        print_r('asdgasdg');exit();
+        $comment = new Comment();
+        $comment->setUserName('Anton Rinas')
+                ->setContent('комментарий')
+                ->setCreatedAt(date('Y-m-d H:i:s'))
+                ->setUpdatedAt(date('Y-m-d H:i:s'));
+
+        $this->entityManager->persist($comment);
+        $this->entityManager->flush();
+
+        print_r($comment->getId());exit();
 
         return $this->getView()->setParams([
             'authorized' => $this->getSession()->getUserData() ? true : false,
