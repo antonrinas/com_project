@@ -2,8 +2,15 @@
 
 namespace Model\Repository;
 
+use Model\Entity\CommentInterface;
+
 interface CommentRepositoryInterface
 {
+    /**
+     * @param array|CommentInterface $entity
+     */
+    public function save($entity);
+
     /**
      * @param int $limit
      * @param int $offset

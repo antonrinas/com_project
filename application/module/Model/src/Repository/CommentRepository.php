@@ -5,6 +5,7 @@ namespace Model\Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Model\Entity\Comment;
 use Doctrine\ORM\AbstractQuery;
+use Model\Entity\CommentInterface;
 
 class CommentRepository implements CommentRepositoryInterface
 {
@@ -23,6 +24,22 @@ class CommentRepository implements CommentRepositoryInterface
     }
 
     /**
+     * @param array|CommentInterface $entity
+     */
+    public function save($entity)
+    {
+        if (is_array($entity)){
+            foreach ($entity as $singleEntity){
+                $this->entityManager->persist($singleEntity);
+            }
+        } else {
+            $this->entityManager->persist($entity);
+        }
+
+        $this->entityManager->flush();
+    }
+
+    /**
      * @param int $limit
      * @param int $offset
      *
@@ -31,7 +48,7 @@ class CommentRepository implements CommentRepositoryInterface
     public function fetchAllForList($limit, $offset = 0)
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
-        $queryBuilder->select(array('comments'))
+        $queryBuilder->select(['comments'])
                      ->from(Comment::class, 'comments')
                      ->orderBy('comments.createdAt', 'DESC')
                      ->setFirstResult((int) $offset)

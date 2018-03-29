@@ -4,18 +4,12 @@ namespace Api\Service;
 
 use Api\Core\Constants;
 use DateTime;
-use Model\Entity\Comment;
-use Doctrine\ORM\EntityManagerInterface;
+use Model\Entity\CommentInterface;
 use Model\Repository\CommentRepositoryInterface;
 use Main\Service\PusherServiceInterface;
 
 class CommentService implements CommentServiceInterface
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
     /**
      * @var CommentRepositoryInterface
      */
@@ -27,20 +21,25 @@ class CommentService implements CommentServiceInterface
     private $pusherService;
 
     /**
+     * @var CommentInterface
+     */
+    private $comment;
+
+    /**
      * CommentService constructor.
-     * @param EntityManagerInterface $entityManager
      * @param CommentRepositoryInterface $commentRepository
      * @param PusherServiceInterface $pusherService
+     * @param CommentInterface $comment
      */
     public function __construct(
-        EntityManagerInterface $entityManager,
         CommentRepositoryInterface $commentRepository,
-        PusherServiceInterface $pusherService
+        PusherServiceInterface $pusherService,
+        CommentInterface $comment
     )
     {
-        $this->entityManager = $entityManager;
         $this->commentRepository = $commentRepository;
         $this->pusherService = $pusherService;
+        $this->comment = $comment;
     }
 
     /**
@@ -70,26 +69,21 @@ class CommentService implements CommentServiceInterface
     public function store($data)
     {
         $currentDateTime = new DateTime(date('Y-m-d H:i:s'));
-        $comment = new Comment();
-        $comment->setUserName($data['user_name'])
-            ->setContent($data['content'])
-            ->setCreatedAt($currentDateTime)
-            ->setUpdatedAt($currentDateTime);
-        $this->entityManager->persist($comment);
-        $this->entityManager->flush();
-        $this->pushAddedMessage($comment);
+        $this->comment->setUserName($data['user_name'])
+                      ->setContent($data['content'])
+                      ->setCreatedAt($currentDateTime)
+                      ->setUpdatedAt($currentDateTime);
+        $this->commentRepository->save($this->comment);
+        $this->pushAddedMessage();
     }
 
-    /**
-     * @param Comment $comment
-     */
-    private function pushAddedMessage(Comment $comment)
+    private function pushAddedMessage()
     {
         $this->pusherService->push('comments', 'added', [
-            'id' => $comment->getId(),
-            'user_name' => urlencode($comment->getUserName()),
-            'content' => urlencode($comment->getContent()),
-            'created_at' => $comment->getCreatedAt()->format('d.m.Y H:i:s')
+            'id' => $this->comment->getId(),
+            'user_name' => urlencode($this->comment->getUserName()),
+            'content' => urlencode($this->comment->getContent()),
+            'created_at' => $this->comment->getCreatedAt()->format('d.m.Y H:i:s')
         ]);
     }
 }

@@ -8,6 +8,7 @@ use Framework\Instantiator\FactoryInterface;
 use Doctrine\ORM\EntityManager;
 use Model\Repository\CommentRepository;
 use Main\Service\PusherService;
+use Model\Entity\Comment;
 
 class CommentServiceFactory implements FactoryInterface
 {
@@ -19,9 +20,11 @@ class CommentServiceFactory implements FactoryInterface
     public function __construct(InstantiatorInterface $instantiator)
     {
         $entityManager = $instantiator->instantiateFactory(EntityManager::class)->make();
-        $commentRepository = new CommentRepository($entityManager);
-        $pusherService = new PusherService();
-        $this->object = new CommentService($entityManager, $commentRepository, $pusherService);
+        $this->object = new CommentService(
+            new CommentRepository($entityManager),
+            new PusherService(),
+            new Comment()
+        );
     }
 
     public function make()

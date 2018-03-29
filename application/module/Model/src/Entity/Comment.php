@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="comments")
  * @ORM\Entity
  */
-class Comment
+class Comment implements CommentInterface
 {
     /**
      * @var integer

@@ -13,11 +13,15 @@ class CommentController extends BaseApiController
      */
     private $commentService;
 
+    /**
+     * @var BaseValidatorInterface
+     */
     private $validator;
 
     /**
      * CommentController constructor.
      * @param CommentServiceInterface $commentService
+     * @param BaseValidatorInterface $validator
      */
     public function __construct(CommentServiceInterface $commentService, BaseValidatorInterface $validator)
     {
@@ -33,9 +37,11 @@ class CommentController extends BaseApiController
     public function index()
     {
         try {
-            $page = (int) $this->getRequest()->getGetParam('page');
-
-            return $this->getView()->setParams($this->commentService->retrieveList($page))->render();
+            return $this->getView()
+                        ->setParams(
+                            $this->commentService
+                                 ->retrieveList((int) $this->getRequest()->getGetParam('page'))
+                        )->render();
         } catch(\Exception $e) {
             $this->getResponse()->setStatusCode($e->getCode());
             return $this->getView()->setParams([
