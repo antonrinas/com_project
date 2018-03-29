@@ -8,7 +8,6 @@
                               v-bind:class="{'is-invalid': formErrors.user_name}"
                               type="text"
                               v-model="formData.user_name"
-                              required
                               placeholder="Ваше имя*"
                               v-on:input="formErrors.user_name = ''"
                 ></b-form-input>
@@ -21,7 +20,6 @@
                                  v-bind:class="{'is-invalid': formErrors.content}"
                                  v-model="formData.content"
                                  placeholder="Комментарий*"
-                                 required
                                  :rows="3"
                                  :max-rows="6"
                                  v-on:input="formErrors.content = ''"

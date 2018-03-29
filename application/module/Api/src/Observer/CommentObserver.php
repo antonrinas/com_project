@@ -8,19 +8,20 @@ use Api\Service\CommentServiceInterface;
 class CommentObserver extends Observer
 {
     private $emotions = [
+        ':-)))' => '<img src="/img/emoticons/happy.png" />',
+        ')))' => '<img src="/img/emoticons/happy.png" />',
         ':-))' => '<img src="/img/emoticons/happy.png" />',
         ':))' => '<img src="/img/emoticons/happy.png" />',
         '))' => '<img src="/img/emoticons/happy.png" />',
-        ')))' => '<img src="/img/emoticons/happy.png" />',
 
         ':-|' => '<img src="/img/emoticons/confused.png" />',
         ':|' => '<img src="/img/emoticons/confused.png" />',
 
+        '(((' => '<img src="/img/emoticons/sad.png" />',
         ':-(' => '<img src="/img/emoticons/sad.png" />',
         ':(' => '<img src="/img/emoticons/sad.png" />',
         ':((' => '<img src="/img/emoticons/sad.png" />',
         '((' => '<img src="/img/emoticons/sad.png" />',
-        '(((' => '<img src="/img/emoticons/sad.png" />',
 
         ':-)' => '<img src="/img/emoticons/smiling.png" />',
         ':)' => '<img src="/img/emoticons/smiling.png" />',
