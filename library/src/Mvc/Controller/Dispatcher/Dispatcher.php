@@ -9,6 +9,7 @@ use Framework\Mvc\View\JsonModelInterface;
 use Framework\Mvc\Controller\BaseControllerInterface;
 use Framework\Session\SessionInterface;
 use Framework\Instantiator\InstantiatorInterface;
+use Framework\EventManager\EventManagerInterface;
 
 class Dispatcher implements DispatcherInterface
 {
@@ -48,18 +49,25 @@ class Dispatcher implements DispatcherInterface
     private $instantiator;
 
     /**
+     * @var EventManagerInterface
+     */
+    private $eventManager;
+
+    /**
      * Dispatcher constructor.
      * @param ResponseInterface $response
      * @param ViewModelInterface $viewModel
      * @param JsonModelInterface $jsonModel
      * @param SessionInterface $session
+     * @param EventManagerInterface $eventManager
      */
     public function __construct(
         ResponseInterface $response,
         ViewModelInterface $viewModel,
         JsonModelInterface $jsonModel,
         SessionInterface $session,
-        InstantiatorInterface $instantiator
+        InstantiatorInterface $instantiator,
+        EventManagerInterface $eventManager
     )
     {
         $this->response = $response;
@@ -67,6 +75,7 @@ class Dispatcher implements DispatcherInterface
         $this->jsonModel = $jsonModel;
         $this->session = $session;
         $this->instantiator = $instantiator;
+        $this->eventManager = $eventManager;
     }
 
     /**
@@ -96,8 +105,8 @@ class Dispatcher implements DispatcherInterface
 
     /**
      * @return ResponseInterface
-     *
      * @throws DispatcherException
+     * @throws \Framework\Instantiator\InstantiatorException
      * @throws \Framework\Mvc\View\ViewModelException
      */
     public function dispatch()
@@ -153,7 +162,8 @@ class Dispatcher implements DispatcherInterface
         if ($controller->getContentType() === 'application/json'){
             $controller->setView($this->jsonModel);
         }
-        $controller->setSession($this->session);
+        $controller->setSession($this->session)
+                   ->setEventManager($this->eventManager);
 
         return $controller;
     }

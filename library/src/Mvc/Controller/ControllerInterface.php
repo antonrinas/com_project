@@ -6,6 +6,7 @@ use Framework\Mvc\Controller\Request\RequestInterface;
 use Framework\Mvc\Controller\Response\ResponseInterface;
 use Framework\Mvc\View\ViewModelInterface;
 use Framework\Session\SessionInterface;
+use Framework\EventManager\EventManagerInterface;
 
 interface ControllerInterface
 {
@@ -85,4 +86,16 @@ interface ControllerInterface
      * @return BaseControllerInterface
      */
     public function setRoute($route);
+
+    /**
+     * @param EventManagerInterface $eventManager
+     *
+     * @return BaseControllerInterface
+     */
+    public function setEventManager(EventManagerInterface $eventManager);
+
+    /**
+     * @return EventManagerInterface
+     */
+    public function getEventManager();
 }

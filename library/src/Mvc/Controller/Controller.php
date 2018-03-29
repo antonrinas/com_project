@@ -7,6 +7,7 @@ use Framework\Mvc\Controller\Response\ResponseInterface;
 use Framework\Mvc\View\ViewModelInterface;
 use Framework\Mvc\View\JsonModelInterface;
 use Framework\Session\SessionInterface;
+use Framework\EventManager\EventManagerInterface;
 
 abstract class Controller implements ControllerInterface
 {
@@ -48,6 +49,11 @@ abstract class Controller implements ControllerInterface
     protected $route;
 
     /**
+     * @var EventManagerInterface
+     */
+    protected $eventManager;
+
+    /**
      * @return RequestInterface
      */
     public function getRequest()
@@ -58,7 +64,7 @@ abstract class Controller implements ControllerInterface
     /**
      * @param RequestInterface $request
      *
-     * @return BaseController
+     * @return ControllerInterface
      */
     public function setRequest($request)
     {
@@ -77,7 +83,7 @@ abstract class Controller implements ControllerInterface
     /**
      * @param ResponseInterface $response
      *
-     * @return BaseController
+     * @return ControllerInterface
      */
     public function setResponse($response)
     {
@@ -96,7 +102,7 @@ abstract class Controller implements ControllerInterface
     /**
      * @param array $moduleConfig
      *
-     * @return BaseController
+     * @return ControllerInterface
      */
     public function setModuleConfig($moduleConfig)
     {
@@ -115,7 +121,7 @@ abstract class Controller implements ControllerInterface
     /**
      * @param ViewModelInterface | JsonModelInterface $view
      *
-     * @return BaseController
+     * @return ControllerInterface
      */
     public function setView($view)
     {
@@ -134,7 +140,7 @@ abstract class Controller implements ControllerInterface
     /**
      * @param SessionInterface $session
      *
-     * @return BaseController
+     * @return ControllerInterface
      */
     public function setSession($session)
     {
@@ -161,11 +167,30 @@ abstract class Controller implements ControllerInterface
     /**
      * @param array $route
      *
-     * @return BaseControllerInterface
+     * @return ControllerInterface
      */
     public function setRoute($route)
     {
         $this->route = $route;
         return $this;
+    }
+
+    /**
+     * @param EventManagerInterface $eventManager
+     *
+     * @return ControllerInterface
+     */
+    public function setEventManager(EventManagerInterface $eventManager)
+    {
+        $this->eventManager = $eventManager;
+        return $this;
+    }
+
+    /**
+     * @return EventManagerInterface
+     */
+    public function getEventManager()
+    {
+        return $this->eventManager;
     }
 }
