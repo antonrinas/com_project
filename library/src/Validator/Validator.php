@@ -160,7 +160,9 @@ class Validator implements ValidatorInterface
         $validators = $this->getElementsValidators();
         $filters = $this->getElementsFilters();
 
-        if ($filters) $this->filterValues();
+        if ($filters) {
+            $this->filterValues();
+        }
 
         foreach ($validators as $elementName => $validatorsArray){
             foreach ($validatorsArray as $validator){

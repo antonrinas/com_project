@@ -43,5 +43,8 @@ class ApplicationFactory implements FactoryInterface
             ini_set('log_errors', 'On');
             ini_set('error_log', ROOT.DS.'tmp'.DS.'logs'.DS.'error.log');
         }
+        if (array_key_exists('date_default_timezone', $this->config)) {
+            date_default_timezone_set($this->config['date_default_timezone']);
+        }
     }
 }

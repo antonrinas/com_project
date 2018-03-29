@@ -50,6 +50,14 @@ abstract class BaseValidator
     /**
      * @return array
      */
+    public function getFormData()
+    {
+        return $this->validator->getFormElements();
+    }
+
+    /**
+     * @return array
+     */
     public function getErrors()
     {
         return $this->errors;

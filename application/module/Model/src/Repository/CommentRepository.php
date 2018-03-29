@@ -4,7 +4,7 @@ namespace Model\Repository;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Model\Entity\Comment;
-//use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\AbstractQuery;
 
 class CommentRepository
 {
@@ -23,10 +23,11 @@ class CommentRepository
         $queryBuilder = $this->entityManager->createQueryBuilder();
         $queryBuilder->select(array('comments'))
                      ->from(Comment::class, 'comments')
+                     ->orderBy('comments.createdAt', 'DESC')
                      ->setFirstResult((int) $offset)
                      ->setMaxResults((int) $limit);
         $query = $queryBuilder->getQuery();
-        $results = $query->getResult(/*AbstractQuery::HYDRATE_ARRAY*/);
+        $results = $query->getResult(AbstractQuery::HYDRATE_ARRAY);
 
         return $this->prepareResults($results);
     }
@@ -44,11 +45,12 @@ class CommentRepository
     {
         $preparedResults = [];
         foreach ($results as $item) {
+            $createdAt = $item['createdAt'];
             $preparedResults[] = [
-                'id' => $item->getId(),
-                'user_name' => urlencode($item->getUserName()),
-                'content' => urlencode($item->getContent()),
-                'created_at' => $item->getCreatedAt()->format('d.m.Y H:i:s'),
+                'id' => $item['id'],
+                'user_name' => urlencode($item['userName']),
+                'content' => urlencode($item['content']),
+                'created_at' => $createdAt->format('d.m.Y H:i:s'),
             ];
         }
 

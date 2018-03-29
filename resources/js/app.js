@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import commentsBox from './components/comments-box.vue';
+window.Pusher = require('pusher-js');
 
 const app = new Vue({
     data: {
