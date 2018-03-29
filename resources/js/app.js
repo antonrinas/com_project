@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import 'core-js/fn/promise';
 import commentsBox from './components/comments-box.vue';
 window.Pusher = require('pusher-js');
 
