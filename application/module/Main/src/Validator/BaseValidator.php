@@ -5,7 +5,7 @@ namespace Main\Validator;
 use Framework\Validator\Validator;
 use Framework\Validator\ValidatorInterface;
 
-abstract class BaseValidator
+abstract class BaseValidator implements BaseValidatorInterface
 {
     /**
      * @var ValidatorInterface

@@ -2,16 +2,24 @@
 
 namespace Api\Controller;
 
-use Main\Exception\ControllerException;
 use Api\Core\Constants;
-use DateTime;
-use Model\Entity\Comment;
 use Api\Validator\Comment as CommentValidator;
-use Main\Service\PusherService;
+use Api\Service\CommentServiceInterface;
+use Api\Service\CommentService;
+use Main\Validator\BaseValidatorInterface;
 
 class CommentController extends BaseApiController
 {
-    const ENTITIES_PER_PAGE = 5;
+    /**
+     * @var CommentServiceInterface
+     */
+    private $commentService;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->commentService = new CommentService($this->entityManager);
+    }
 
     /**
      * Retrieve tasks list
@@ -22,18 +30,8 @@ class CommentController extends BaseApiController
     {
         try {
             $page = (int) $this->getRequest()->getGetParam('page');
-            $commentsRepository = new \Model\Repository\CommentRepository($this->entityManager);
-            $offset = self::ENTITIES_PER_PAGE * ($page - 1);
-            $comments = $commentsRepository->fetchAllForList(self::ENTITIES_PER_PAGE, $offset);
 
-            return $this->getView()->setParams(
-                [
-                    'status' => Constants::OK_STATUS,
-                    'data' => $comments,
-                    'per_page' => self::ENTITIES_PER_PAGE,
-                    'total_rows' => $commentsRepository->countAll()
-                ]
-            )->render();
+            return $this->getView()->setParams($this->commentService->retrieveList($page))->render();
         } catch(\Exception $e) {
             $this->getResponse()->setStatusCode($e->getCode());
             return $this->getView()->setParams([
@@ -62,15 +60,7 @@ class CommentController extends BaseApiController
                 ])->render();
             }
             $validData = $validator->getFormData();
-            $currentDateTime = new DateTime(date('Y-m-d H:i:s'));
-            $comment = new Comment();
-            $comment->setUserName($validData['user_name'])
-                    ->setContent($validData['content'])
-                    ->setCreatedAt($currentDateTime)
-                    ->setUpdatedAt($currentDateTime);
-            $this->entityManager->persist($comment);
-            $this->entityManager->flush();
-            $this->pushAddedMessage($comment);
+            $this->commentService->store($validData);
             $this->getResponse()->setStatusCode(Constants::CREATED_STATUS_CODE);
 
             return $this->getView()->setParams(['status' => Constants::OK_STATUS,])->render();
@@ -82,16 +72,5 @@ class CommentController extends BaseApiController
                 'message_for_developer' => $e->getMessage(),
             ])->render();
         }
-    }
-
-    private function pushAddedMessage($comment)
-    {
-        $pusherService = new PusherService();
-        $pusherService->push('comments', 'added', [
-            'id' => $comment->getId(),
-            'user_name' => urlencode($comment->getUserName()),
-            'content' => urlencode($comment->getContent()),
-            'created_at' => $comment->getCreatedAt()->format('d.m.Y H:i:s')
-        ]);
     }
 }

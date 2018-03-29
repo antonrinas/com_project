@@ -66,7 +66,7 @@
         },
         beforeMount: function () {
             var vueInstance = this;
-            Pusher.logToConsole = true;
+            //Pusher.logToConsole = true;
             this.pusher = new Pusher('cdb14d8667c152df38cb', {
                 cluster: 'eu',
                 encrypted: false
