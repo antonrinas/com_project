@@ -5,12 +5,12 @@ namespace Model\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Comment
+ * Observer
  *
- * @ORM\Table(name="comments")
+ * @ORM\Table(name="observers")
  * @ORM\Entity
  */
-class Comment implements CommentInterface
+class Observer implements ObserverInterface
 {
     /**
      * @var integer
@@ -24,23 +24,16 @@ class Comment implements CommentInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="user_name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="observer_class_name", type="text", length=65535, nullable=true)
      */
-    private $userName;
+    private $observerClassName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="event_name", type="string", length=100, nullable=true)
      */
-    private $content;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="content_changed", type="text", length=65535, nullable=true)
-     */
-    private $contentChanged;
+    private $eventName;
 
     /**
      * @var \DateTime
@@ -57,9 +50,7 @@ class Comment implements CommentInterface
     private $updatedAt;
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -69,54 +60,36 @@ class Comment implements CommentInterface
     /**
      * @return string
      */
-    public function getUserName()
+    public function getObserverClassName()
     {
-        return $this->userName;
+        return $this->observerClassName;
     }
 
     /**
-     * @param string $userName
-     * @return Comment
+     * @param string $observerClassName
+     * @return Observer
      */
-    public function setUserName($userName)
+    public function setObserverClassName($observerClassName)
     {
-        $this->userName = $userName;
+        $this->observerClassName = $observerClassName;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getContent()
+    public function getEventName()
     {
-        return $this->content;
+        return $this->eventName;
     }
 
     /**
-     * @param string $content
-     * @return Comment
+     * @param string $eventName
+     * @return Observer
      */
-    public function setContent($content)
+    public function setEventName($eventName)
     {
-        $this->content = $content;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getContentChanged()
-    {
-        return $this->contentChanged;
-    }
-
-    /**
-     * @param string $contentChanged
-     * @return Comment
-     */
-    public function setContentChanged($contentChanged)
-    {
-        $this->contentChanged = $contentChanged;
+        $this->eventName = $eventName;
         return $this;
     }
 
@@ -130,7 +103,7 @@ class Comment implements CommentInterface
 
     /**
      * @param \DateTime $createdAt
-     * @return Comment
+     * @return Observer
      */
     public function setCreatedAt($createdAt)
     {
@@ -148,7 +121,7 @@ class Comment implements CommentInterface
 
     /**
      * @param \DateTime $updatedAt
-     * @return Comment
+     * @return Observer
      */
     public function setUpdatedAt($updatedAt)
     {

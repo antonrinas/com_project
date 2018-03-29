@@ -6,10 +6,8 @@ use Framework\Mvc\Controller\Request\RequestInterface;
 use Framework\Mvc\Controller\Response\ResponseInterface;
 use Framework\Mvc\View\ViewModelInterface;
 use Framework\Mvc\View\JsonModelInterface;
-use Framework\Mvc\Controller\BaseControllerInterface;
 use Framework\Session\SessionInterface;
 use Framework\Instantiator\InstantiatorInterface;
-use Framework\EventManager\EventManagerInterface;
 
 class Dispatcher implements DispatcherInterface
 {
@@ -49,25 +47,18 @@ class Dispatcher implements DispatcherInterface
     private $instantiator;
 
     /**
-     * @var EventManagerInterface
-     */
-    private $eventManager;
-
-    /**
      * Dispatcher constructor.
      * @param ResponseInterface $response
      * @param ViewModelInterface $viewModel
      * @param JsonModelInterface $jsonModel
      * @param SessionInterface $session
-     * @param EventManagerInterface $eventManager
      */
     public function __construct(
         ResponseInterface $response,
         ViewModelInterface $viewModel,
         JsonModelInterface $jsonModel,
         SessionInterface $session,
-        InstantiatorInterface $instantiator,
-        EventManagerInterface $eventManager
+        InstantiatorInterface $instantiator
     )
     {
         $this->response = $response;
@@ -75,7 +66,6 @@ class Dispatcher implements DispatcherInterface
         $this->jsonModel = $jsonModel;
         $this->session = $session;
         $this->instantiator = $instantiator;
-        $this->eventManager = $eventManager;
     }
 
     /**
@@ -142,7 +132,7 @@ class Dispatcher implements DispatcherInterface
         $moduleConfig = require (ROOT . DS . 'application' . DS . 'module' . DS . $moduleName . DS . 'config' . DS . 'config.php');
 
         if ($this->instantiator->findFactory($className)) {
-            $controller = $this->instantiator->instantiateFactory($className)->make();
+            $controller = $this->instantiator->instantiate($className);
         } else {
             $controller = new $className;
         }
@@ -162,8 +152,7 @@ class Dispatcher implements DispatcherInterface
         if ($controller->getContentType() === 'application/json'){
             $controller->setView($this->jsonModel);
         }
-        $controller->setSession($this->session)
-                   ->setEventManager($this->eventManager);
+        $controller->setSession($this->session);
 
         return $controller;
     }

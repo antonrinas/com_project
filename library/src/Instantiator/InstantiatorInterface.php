@@ -18,5 +18,5 @@ interface InstantiatorInterface
      *
      * @throws InstantiatorException
      */
-    public function instantiateFactory($className);
+    public function instantiate($className);
 }

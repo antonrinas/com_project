@@ -17,6 +17,11 @@ class EventManager implements EventManagerInterface
         }
     }
 
+    /**
+     * @return EventManagerInterface
+     *
+     * @throws EventManagerException
+     */
     public static function getInstance()
     {
         static $eventManager;
@@ -47,35 +52,11 @@ class EventManager implements EventManagerInterface
 
     /**
      * @param string $name
-     * @return EventManagerInterface
-     */
-    public function addEvent($name)
-    {
-        if (!array_key_exists($name, $this->eventsMap)) {
-            $this->eventsMap[$name] = [];
-        }
-        return $this;
-    }
-
-    /**
-     * @param string $name
-     * @return EventManagerInterface
-     */
-    public function removeEvent($name)
-    {
-        if (!array_key_exists($name, $this->eventsMap)) {
-            unset($this->eventsMap[$name]);
-        }
-        return $this;
-    }
-
-    /**
-     * @param string $name
      * @param ObserverInterface $observer
      *
      * @return EventManagerInterface
      */
-    public function addObserver($name, ObserverInterface $observer)
+    public function subscribe($name, ObserverInterface $observer)
     {
         if (!array_key_exists($name, $this->eventsMap)) {
             $this->eventsMap[$name] = [];
@@ -88,13 +69,11 @@ class EventManager implements EventManagerInterface
      * @param $eventName
      *
      * @return EventManagerInterface
-     *
-     * @throws EventManagerException
      */
     public function fire($eventName, $params = [])
     {
         if (!array_key_exists($eventName, $this->eventsMap)) {
-            throw new EventManagerException("Event $eventName was not registered");
+            return false;
         }
         foreach ($this->eventsMap[$eventName] as $observer) {
             $observer->handle($eventName, $params);

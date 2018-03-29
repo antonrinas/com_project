@@ -2,12 +2,32 @@
 
 namespace Framework\EventManager;
 
+use Framework\Instantiator\InstantiatorInterface;
+
 abstract class Observer implements ObserverInterface
 {
     /**
      * @var string
      */
     protected $observerName;
+
+    /**
+     * @var InstantiatorInterface
+     */
+    protected $instantiator;
+
+    public function __construct(InstantiatorInterface $instantiator)
+    {
+        $this->instantiator = $instantiator;
+    }
+
+    /**
+     * @return InstantiatorInterface
+     */
+    public function getInstantiator()
+    {
+        return $this->instantiator;
+    }
 
     /**
      * @param string $eventName

@@ -4,9 +4,7 @@
             <div class="row">
                 <div class="col-md-10">
                     <h5 class="mt-0">{{ comment.user_name }}</h5>
-                    <p>
-                        {{ comment.content }}
-                    </p>
+                    <p v-html="comment.content"></p>
                 </div>
                 <div class="col-md-2">
                     {{ comment.created_at }}

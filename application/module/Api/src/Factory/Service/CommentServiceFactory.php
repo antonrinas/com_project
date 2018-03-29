@@ -12,23 +12,13 @@ use Model\Entity\Comment;
 
 class CommentServiceFactory implements FactoryInterface
 {
-    /**
-     * @var mixed
-     */
-    private $object;
-
-    public function __construct(InstantiatorInterface $instantiator)
+    public function __invoke(InstantiatorInterface $instantiator)
     {
-        $entityManager = $instantiator->instantiateFactory(EntityManager::class)->make();
-        $this->object = new CommentService(
+        $entityManager = $instantiator->instantiate(EntityManager::class);
+        return new CommentService(
             new CommentRepository($entityManager),
             new PusherService(),
             new Comment()
         );
-    }
-
-    public function make()
-    {
-        return $this->object;
     }
 }

@@ -7,22 +7,15 @@ use Framework\Instantiator\InstantiatorInterface;
 use Framework\Instantiator\FactoryInterface;
 use Api\Service\CommentServiceInterface;
 use Api\Validator\Comment as CommentValidator;
+use Main\Factory\BaseControllerFactory;
 
-class CommentControllerFactory implements FactoryInterface
+class CommentControllerFactory extends BaseControllerFactory implements FactoryInterface
 {
-    /**
-     * @var mixed
-     */
-    private $object;
-
-    public function __construct(InstantiatorInterface $instantiator)
+    public function __invoke(InstantiatorInterface $instantiator)
     {
-        $commentService = $instantiator->instantiateFactory(CommentServiceInterface::class)->make();
-        $this->object = new CommentController($commentService, new CommentValidator);
-    }
+        $commentService = $instantiator->instantiate(CommentServiceInterface::class);
+        $controller = new CommentController($commentService, new CommentValidator);
 
-    public function make()
-    {
-        return $this->object;
+        return $this->subscribeObservers($controller);
     }
 }

@@ -71,6 +71,7 @@ class CommentService implements CommentServiceInterface
         $currentDateTime = new DateTime(date('Y-m-d H:i:s'));
         $this->comment->setUserName($data['user_name'])
                       ->setContent($data['content'])
+                      ->setContentChanged($data['content_changed'])
                       ->setCreatedAt($currentDateTime)
                       ->setUpdatedAt($currentDateTime);
         $this->commentRepository->save($this->comment);
@@ -82,7 +83,7 @@ class CommentService implements CommentServiceInterface
         $this->pusherService->push('comments', 'added', [
             'id' => $this->comment->getId(),
             'user_name' => urlencode($this->comment->getUserName()),
-            'content' => urlencode($this->comment->getContent()),
+            'content' => urlencode($this->comment->getContentChanged()),
             'created_at' => $this->comment->getCreatedAt()->format('d.m.Y H:i:s')
         ]);
     }

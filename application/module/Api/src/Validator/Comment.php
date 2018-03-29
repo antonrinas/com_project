@@ -12,11 +12,13 @@ class Comment extends BaseValidator
     protected $filters = [
         'user_name' => [
             'trimFilter',
-            'stripSlashesFilter'
+            'stripSlashesFilter',
+            'stripTags',
         ],
         'content' => [
             'trimFilter',
-            'stripSlashesFilter'
+            'stripSlashesFilter',
+            'stripTags',
         ],
     ];
 

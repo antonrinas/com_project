@@ -34,6 +34,17 @@ interface CommentInterface
     public function setContent($content);
 
     /**
+     * @return string
+     */
+    public function getContentChanged();
+
+    /**
+     * @param string $contentChanged
+     * @return CommentInterface
+     */
+    public function setContentChanged($contentChanged);
+
+    /**
      * @return \DateTime
      */
     public function getCreatedAt();

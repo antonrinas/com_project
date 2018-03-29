@@ -44,7 +44,7 @@ class Instantiator implements InstantiatorInterface
      *
      * @throws InstantiatorException
      */
-    public function instantiateFactory($className)
+    public function instantiate($className)
     {
         $factoryClassName = $this->findFactory($className);
         if (!$factoryClassName) {
@@ -57,7 +57,8 @@ class Instantiator implements InstantiatorInterface
                 $factoryClassName
             ));
         }
+        $factory = new $factoryClassName($this);
 
-        return new $factoryClassName($this);
+        return $factory($this);
     }
 }

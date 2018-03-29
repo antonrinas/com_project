@@ -8,7 +8,6 @@ use Framework\Mvc\View\ViewModel;
 use Framework\Mvc\View\JsonModel;
 use Framework\Session\Session;
 use Framework\Instantiator\Instantiator;
-use Framework\EventManager\EventManager;
 
 class DispatcherFactory implements FactoryInterface
 {
@@ -19,15 +18,12 @@ class DispatcherFactory implements FactoryInterface
      */
     public function getInstance()
     {
-        $eventManager = EventManager::getInstance();
-
         return new Dispatcher(
             new Response(),
             new ViewModel(),
             new JsonModel(),
             new Session(),
-            new Instantiator(),
-            $eventManager
+            new Instantiator()
         );
     }
 }

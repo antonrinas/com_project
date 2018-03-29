@@ -69,8 +69,10 @@ class CommentController extends BaseApiController
                     'messages' => $this->validator->getErrors(),
                 ])->render();
             }
-            $validData = $this->validator->getFormData();
-            $this->commentService->store($validData);
+            $this->getEventManager()->fire(
+                'onSubmit',
+                ['formData' => $this->validator->getFormData()]
+            );
             $this->getResponse()->setStatusCode(Constants::CREATED_STATUS_CODE);
 
             return $this->getView()->setParams(['status' => Constants::OK_STATUS,])->render();

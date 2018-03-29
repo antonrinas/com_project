@@ -88,7 +88,7 @@ class CommentRepository implements CommentRepositoryInterface
             $preparedResults[] = [
                 'id' => $item['id'],
                 'user_name' => urlencode($item['userName']),
-                'content' => urlencode($item['content']),
+                'content' => urlencode($item['contentChanged']),
                 'created_at' => $createdAt->format('d.m.Y H:i:s'),
             ];
         }

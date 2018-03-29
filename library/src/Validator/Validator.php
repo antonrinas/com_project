@@ -354,4 +354,14 @@ class Validator implements ValidatorInterface
         $value = htmlspecialchars($value, ENT_NOQUOTES, 'UTF-8');
         $this->setElementValue($elementName, $value);
     }
+
+    /**
+     * @return void
+     */
+    protected function stripTags($elementName)
+    {
+        $value = $this->getElementValue($elementName);
+        $value = strip_tags($value);
+        $this->setElementValue($elementName, $value);
+    }
 }
