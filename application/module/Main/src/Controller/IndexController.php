@@ -2,7 +2,9 @@
 
 namespace Main\Controller;
 
-class IndexController extends BaseController
+use Framework\Mvc\Controller\Controller;
+
+class IndexController extends Controller
 {
     /**
      * @return string

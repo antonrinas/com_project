@@ -24,9 +24,16 @@ abstract class BaseValidator implements BaseValidatorInterface
      */
     protected $errors;
 
-    public function __construct($data)
+    public function __construct($data = [])
     {
         $this->validator = new Validator();
+        $this->validator->setFormElements($data);
+        $this->validator->setElementsFilters($this->filters);
+        $this->validator->setElementsValidators($this->validators);
+    }
+
+    public function setFormData($data)
+    {
         $this->validator->setFormElements($data);
         $this->validator->setElementsFilters($this->filters);
         $this->validator->setElementsValidators($this->validators);

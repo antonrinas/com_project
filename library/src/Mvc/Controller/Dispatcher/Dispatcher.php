@@ -8,6 +8,7 @@ use Framework\Mvc\View\ViewModelInterface;
 use Framework\Mvc\View\JsonModelInterface;
 use Framework\Mvc\Controller\BaseControllerInterface;
 use Framework\Session\SessionInterface;
+use Framework\Instantiator\InstantiatorInterface;
 
 class Dispatcher implements DispatcherInterface
 {
@@ -42,6 +43,11 @@ class Dispatcher implements DispatcherInterface
     private $session;
 
     /**
+     * @var InstantiatorInterface
+     */
+    private $instantiator;
+
+    /**
      * Dispatcher constructor.
      * @param ResponseInterface $response
      * @param ViewModelInterface $viewModel
@@ -52,13 +58,15 @@ class Dispatcher implements DispatcherInterface
         ResponseInterface $response,
         ViewModelInterface $viewModel,
         JsonModelInterface $jsonModel,
-        SessionInterface $session
+        SessionInterface $session,
+        InstantiatorInterface $instantiator
     )
     {
         $this->response = $response;
         $this->viewModel = $viewModel;
         $this->jsonModel = $jsonModel;
         $this->session = $session;
+        $this->instantiator = $instantiator;
     }
 
     /**
@@ -106,9 +114,10 @@ class Dispatcher implements DispatcherInterface
     }
 
     /**
-     * @return BaseControllerInterface
+     * @return \Framework\Instantiator\FactoryInterface
      *
      * @throws DispatcherException
+     * @throws \Framework\Instantiator\InstantiatorException
      * @throws \Framework\Mvc\View\ViewModelException
      */
     private function initController()
@@ -117,12 +126,18 @@ class Dispatcher implements DispatcherInterface
         $moduleName = $route['module'];
         $controllerNamespace = $route['namespace'];
         $controllerName = $route['controller'];
-        $className = '\\' . $moduleName . '\\' . $controllerNamespace . '\\' . $controllerName . 'Controller';
+        $className = $moduleName . '\\' . $controllerNamespace . '\\' . $controllerName . 'Controller';
         $methodName = $route['method'];
         $this->checkClassMethodAvalability($className, $methodName);
 
-        $moduleConfig = require_once (ROOT . DS . 'application' . DS . 'module' . DS . $moduleName . DS . 'config' . DS . 'config.php');
-        $controller = new $className;
+        $moduleConfig = require (ROOT . DS . 'application' . DS . 'module' . DS . $moduleName . DS . 'config' . DS . 'config.php');
+
+        if ($this->instantiator->findFactory($className)) {
+            $controller = $this->instantiator->instantiateFactory($className)->make();
+        } else {
+            $controller = new $className;
+        }
+
         $this->checkControllerContentType($controller);
         $controller->setRequest($this->request)
                    ->setModuleConfig($moduleConfig)

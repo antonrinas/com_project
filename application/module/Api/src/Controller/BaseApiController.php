@@ -2,10 +2,10 @@
 
 namespace Api\Controller;
 
-use Main\Controller\BaseController;
+use Framework\Mvc\Controller\Controller;
 use Api\Core\Constants;
 
-class BaseApiController extends BaseController
+class BaseApiController extends Controller
 {
     /**
      * @var string

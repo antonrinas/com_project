@@ -5,43 +5,62 @@ namespace Api\Service;
 use Api\Core\Constants;
 use DateTime;
 use Model\Entity\Comment;
-use Main\Service\PusherService;
 use Doctrine\ORM\EntityManagerInterface;
+use Model\Repository\CommentRepositoryInterface;
+use Main\Service\PusherServiceInterface;
 
 class CommentService implements CommentServiceInterface
 {
-    const ENTITIES_PER_PAGE = 5;
-
     /**
      * @var EntityManagerInterface
      */
     private $entityManager;
 
     /**
+     * @var CommentRepositoryInterface
+     */
+    private $commentRepository;
+
+    /**
+     * @var PusherServiceInterface
+     */
+    private $pusherService;
+
+    /**
      * CommentService constructor.
      * @param EntityManagerInterface $entityManager
+     * @param CommentRepositoryInterface $commentRepository
+     * @param PusherServiceInterface $pusherService
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        CommentRepositoryInterface $commentRepository,
+        PusherServiceInterface $pusherService
+    )
     {
         $this->entityManager = $entityManager;
+        $this->commentRepository = $commentRepository;
+        $this->pusherService = $pusherService;
     }
 
     /**
      * @param int $page
      *
      * @return array
+     *
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function retrieveList($page)
     {
-        $commentsRepository = new \Model\Repository\CommentRepository($this->entityManager);
-        $offset = self::ENTITIES_PER_PAGE * ($page - 1);
-        $comments = $commentsRepository->fetchAllForList(self::ENTITIES_PER_PAGE, $offset);
+        $offset = Constants::ENTITIES_PER_PAGE * ($page - 1);
+        $comments = $this->commentRepository->fetchAllForList(Constants::ENTITIES_PER_PAGE, $offset);
 
         return [
             'status' => Constants::OK_STATUS,
             'data' => $comments,
-            'per_page' => self::ENTITIES_PER_PAGE,
-            'total_rows' => $commentsRepository->countAll()
+            'per_page' => Constants::ENTITIES_PER_PAGE,
+            'total_rows' => $this->commentRepository->countAll()
         ];
     }
 
@@ -66,8 +85,7 @@ class CommentService implements CommentServiceInterface
      */
     private function pushAddedMessage(Comment $comment)
     {
-        $pusherService = new PusherService();
-        $pusherService->push('comments', 'added', [
+        $this->pusherService->push('comments', 'added', [
             'id' => $comment->getId(),
             'user_name' => urlencode($comment->getUserName()),
             'content' => urlencode($comment->getContent()),

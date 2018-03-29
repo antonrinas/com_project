@@ -13,8 +13,8 @@ class ApplicationFactory implements FactoryInterface
 
     public function __construct()
     {
-        $routes = require_once (ROOT . DS . 'config' . DS . 'routes.php');
-        $generalConfig = require_once (ROOT . DS . 'config' . DS . 'config.php');
+        $routes = require (ROOT . DS . 'config' . DS . 'routes.php');
+        $generalConfig = require (ROOT . DS . 'config' . DS . 'config.php');
         $config = array_merge_recursive($routes, $generalConfig);
         $this->config = $config;
         $this->initEnviroment();

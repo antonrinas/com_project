@@ -3,9 +3,7 @@
 namespace Api\Controller;
 
 use Api\Core\Constants;
-use Api\Validator\Comment as CommentValidator;
 use Api\Service\CommentServiceInterface;
-use Api\Service\CommentService;
 use Main\Validator\BaseValidatorInterface;
 
 class CommentController extends BaseApiController
@@ -15,10 +13,16 @@ class CommentController extends BaseApiController
      */
     private $commentService;
 
-    public function __construct()
+    private $validator;
+
+    /**
+     * CommentController constructor.
+     * @param CommentServiceInterface $commentService
+     */
+    public function __construct(CommentServiceInterface $commentService, BaseValidatorInterface $validator)
     {
-        parent::__construct();
-        $this->commentService = new CommentService($this->entityManager);
+        $this->commentService = $commentService;
+        $this->validator = $validator;
     }
 
     /**
@@ -51,15 +55,15 @@ class CommentController extends BaseApiController
     {
         try {
             $postParams = $this->getRequest()->getPostParams();
-            $validator = new CommentValidator($postParams);
-            if (!$validator->isValid()){
+            $this->validator->setFormData($postParams);
+            if (!$this->validator->isValid()){
                 $this->getResponse()->setStatusCode(Constants::UNPROCESSABLE_ENTITY_STATUS_CODE);
                 return $this->getView()->setParams([
                     'status' => Constants::WARNING_STATUS,
-                    'messages' => $validator->getErrors(),
+                    'messages' => $this->validator->getErrors(),
                 ])->render();
             }
-            $validData = $validator->getFormData();
+            $validData = $this->validator->getFormData();
             $this->commentService->store($validData);
             $this->getResponse()->setStatusCode(Constants::CREATED_STATUS_CODE);
 

@@ -6,18 +6,28 @@ use Doctrine\ORM\EntityManagerInterface;
 use Model\Entity\Comment;
 use Doctrine\ORM\AbstractQuery;
 
-class CommentRepository
+class CommentRepository implements CommentRepositoryInterface
 {
     /**
      * @var EntityManagerInterface
      */
     protected $entityManager;
 
-    public function __construct($entityManager)
+    /**
+     * CommentRepository constructor.
+     * @param EntityManagerInterface $entityManager
+     */
+    public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }
 
+    /**
+     * @param int $limit
+     * @param int $offset
+     *
+     * @return array
+     */
     public function fetchAllForList($limit, $offset = 0)
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
@@ -32,6 +42,13 @@ class CommentRepository
         return $this->prepareResults($results);
     }
 
+    /**
+     * @return mixed
+     *
+     * @throws \Doctrine\ORM\NoResultException
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function countAll()
     {
         $queryBuilder = $this->entityManager->createQueryBuilder();
@@ -41,6 +58,11 @@ class CommentRepository
         return $queryBuilder->getQuery()->getSingleScalarResult();
     }
 
+    /**
+     * @param $results
+     *
+     * @return array
+     */
     private function prepareResults($results)
     {
         $preparedResults = [];

@@ -5,6 +5,11 @@ namespace Main\Validator;
 interface BaseValidatorInterface
 {
     /**
+     * @param array $data
+     */
+    public function setFormData($data);
+
+    /**
      * @return bool
      */
     public function isValid();

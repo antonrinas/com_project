@@ -9,6 +9,8 @@ class Constants
     const WARNING_STATUS = 'warning';
     const ERROR_STATUS = 'error';
 
+    const ENTITIES_PER_PAGE = 5;
+
     const CREATED_STATUS_CODE = 201;
     const UNPROCESSABLE_ENTITY_STATUS_CODE = 422;
 
