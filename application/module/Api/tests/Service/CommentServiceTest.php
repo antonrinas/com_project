@@ -12,7 +12,7 @@ class CommentServiceTest extends TestCase
 {
     public function testCanBeCreated()
     {
-        echo PHP_EOL . " -- CommentService tests" . PHP_EOL;
+        echo PHP_EOL . " -- API: CommentService tests" . PHP_EOL;
         echo PHP_EOL . "    ---- Can be created test" . PHP_EOL;
 
         $commentRepository = new CommentRepository();
@@ -68,6 +68,8 @@ class CommentServiceTest extends TestCase
                 'content_changed' => ''
             ]
         ));
+
+        echo  PHP_EOL . "#CommentService tests are completed#" . PHP_EOL;
     }
 }
 

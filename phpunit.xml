@@ -9,8 +9,11 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="ApiTests">
+        <!--testsuite name="ApiModuleTests">
             <directory suffix="Test.php">./application/module/Api/tests</directory>
+        </testsuite-->
+        <testsuite name="MainModuleTests">
+            <directory suffix="Test.php">./application/module/Main/tests</directory>
         </testsuite>
     </testsuites>
     <filter>

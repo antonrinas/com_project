@@ -9,7 +9,7 @@ class CommentServiceFactoryTest extends TestCase
 {
     public function testCanBeCreated()
     {
-        echo PHP_EOL . " -- CommentServiceFactory tests" . PHP_EOL;
+        echo PHP_EOL . " -- API: CommentServiceFactory tests" . PHP_EOL;
         echo PHP_EOL . "    ---- Can be created test" . PHP_EOL;
 
         $factory = new CommentServiceFactory(new Instantiator());
@@ -32,6 +32,6 @@ class CommentServiceFactoryTest extends TestCase
             $service
         );
 
-        echo  PHP_EOL . "#CommentServiceFactory tests is completed#" . PHP_EOL;
+        echo  PHP_EOL . "#CommentServiceFactory tests are completed#" . PHP_EOL;
     }
 }

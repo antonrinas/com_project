@@ -24,6 +24,22 @@ abstract class BaseControllerFactory
     }
 
     /**
+     * @return mixed
+     */
+    public function getObservers()
+    {
+        return $this->observers;
+    }
+
+    /**
+     * @return InstantiatorInterface
+     */
+    public function getInstantiator()
+    {
+        return $this->instantiator;
+    }
+
+    /**
      * @param ControllerInterface $controller
      *
      * @return ControllerInterface

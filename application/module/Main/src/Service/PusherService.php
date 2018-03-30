@@ -28,6 +28,17 @@ class PusherService implements PusherServiceInterface
     }
 
     /**
+     * @param Pusher $pusher
+     *
+     * @return PusherService
+     */
+    public function setPusher($pusher)
+    {
+        $this->pusher = $pusher;
+        return $this;
+    }
+
+    /**
      * @param array|string $channelNames
      * @param string $eventName
      * @param array $data
@@ -36,6 +47,6 @@ class PusherService implements PusherServiceInterface
      */
     public function push($channelNames, $eventName, $data)
     {
-        $this->pusher->trigger($channelNames, $eventName, $data);
+        return $this->pusher->trigger($channelNames, $eventName, $data);
     }
 }

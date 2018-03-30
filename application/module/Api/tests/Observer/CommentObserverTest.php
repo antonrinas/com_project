@@ -10,7 +10,7 @@ class CommentObserverTest extends TestCase
 {
     public function testCanBeCreated()
     {
-        echo PHP_EOL . " -- CommentObserver tests" . PHP_EOL;
+        echo PHP_EOL . " -- API: CommentObserver tests" . PHP_EOL;
         echo PHP_EOL . "    ---- Can be created test" . PHP_EOL;
 
         $observer = new CommentObserver(new Instantiator());
@@ -43,6 +43,8 @@ class CommentObserverTest extends TestCase
             ],
             $observer->onSubmit($formData)
         );
+
+        echo  PHP_EOL . "#CommentObserver tests are completed#" . PHP_EOL;
     }
 }
 

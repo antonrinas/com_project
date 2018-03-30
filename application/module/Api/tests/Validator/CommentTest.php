@@ -8,7 +8,7 @@ class CommentTest extends TestCase
 {
     public function testCanBeCreated()
     {
-        echo PHP_EOL . " -- CommentTestValidator tests" . PHP_EOL;
+        echo PHP_EOL . " -- API: CommentValidator tests" . PHP_EOL;
         echo PHP_EOL . "    ---- Can be created test" . PHP_EOL;
 
         $validator = new Comment();
@@ -95,5 +95,7 @@ class CommentTest extends TestCase
             'content' => 'test',
         ]);
         $this->assertTrue($validator->isValid());
+
+        echo  PHP_EOL . "#CommentValidator tests are completed#" . PHP_EOL;
     }
 }

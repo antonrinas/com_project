@@ -15,7 +15,7 @@ class CommentControllerTest extends TestCase
 {
     public function testCanBeCreated()
     {
-        echo PHP_EOL . " -- CommentController tests" . PHP_EOL;
+        echo PHP_EOL . " -- API: CommentController tests" . PHP_EOL;
         echo PHP_EOL . "    ---- Can be created test" . PHP_EOL;
 
         $commentService = new CommentService();
@@ -86,7 +86,7 @@ class CommentControllerTest extends TestCase
         ]);
         $this->assertSame(1, strpos($controller->store(), '"status":"warning"'));
 
-        echo  PHP_EOL . "#CommentController tests is completed#" . PHP_EOL;
+        echo  PHP_EOL . "#CommentController tests are completed#" . PHP_EOL;
     }
 }
 
