@@ -22,17 +22,6 @@
         components: {
             'b-card': bCard,
         },
-        data(){
-            return {
-
-            }
-        },
-        mounted: function () {
-
-        },
-        methods: {
-
-        },
     }
 </script>
 

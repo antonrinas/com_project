@@ -35,7 +35,6 @@
     import bPagination from 'bootstrap-vue/es/components/pagination/pagination';
 
     export default {
-        props: [],
         mixins: [decodeValues],
         components: {
             'comments-list': commentsList,

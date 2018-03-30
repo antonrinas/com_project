@@ -44,7 +44,6 @@
     import bFormTextarea from 'bootstrap-vue/es/components/form-textarea/form-textarea';
 
     export default {
-        props: [],
         components: {
             'b-button': bButton,
             'b-form': bForm,
@@ -64,9 +63,6 @@
                 },
                 requesting: false,
             }
-        },
-        mounted: function () {
-
         },
         methods: {
             save: function () {

@@ -4,12 +4,12 @@ namespace Framework\Validator;
 
 class Validator implements ValidatorInterface
 {
-    const ERROR_MESSAGE_DEFAULT = 'Введено неверное значение';
-    const ERROR_MESSAGE_NOT_EMPTY = 'Поле не может быть пустым';
-    const ERROR_MESSAGE_STRING_LENGTH = 'Длина значения выходит за рамки допустимого диапазона';
-    const ERROR_MESSAGE_REGEX = 'Значение не совпадает с допустимым шаблоном';
-    const ERROR_MESSAGE_EMAIL = 'Неверный формат email';
-    const ERROR_MESSAGE_IDENTICAL = 'Значения полей не совпадают';
+    const ERROR_MESSAGE_DEFAULT = 'Invalid input';
+    const ERROR_MESSAGE_NOT_EMPTY = 'This field cannot be empty';
+    const ERROR_MESSAGE_STRING_LENGTH = 'Invalid string length';
+    const ERROR_MESSAGE_REGEX = 'The value does not match the valid pattern';
+    const ERROR_MESSAGE_EMAIL = 'Wrong email format';
+    const ERROR_MESSAGE_IDENTICAL = 'Fields values do not match';
 
     /**
      * @var array
