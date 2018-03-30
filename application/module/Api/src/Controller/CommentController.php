@@ -30,7 +30,7 @@ class CommentController extends BaseApiController
     }
 
     /**
-     * Retrieve tasks list
+     * Retrieve comments list
      *
      * @return string
      */
@@ -53,7 +53,7 @@ class CommentController extends BaseApiController
     }
 
     /**
-     * Add task
+     * Add comment
      *
      * @return string
      */
