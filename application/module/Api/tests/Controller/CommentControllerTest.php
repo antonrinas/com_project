@@ -67,6 +67,10 @@ class CommentControllerTest extends TestCase
             '{"status":"ok"}',
             $controller->store()
         );
+        $this->assertSame(
+            Constants::CREATED_STATUS_CODE,
+            $controller->getResponse()->getStatusCode()
+        );
     }
 
     /**
