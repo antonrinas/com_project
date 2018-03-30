@@ -25,6 +25,16 @@ class Instantiator implements InstantiatorInterface
     }
 
     /**
+     * @param array $factoriesMap
+     * @return Instantiator
+     */
+    public function setFactoriesMap($factoriesMap)
+    {
+        $this->factoriesMap = $factoriesMap;
+        return $this;
+    }
+
+    /**
      * @param string $className
      *
      * @return bool|mixed

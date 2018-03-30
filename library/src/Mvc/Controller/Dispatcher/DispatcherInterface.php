@@ -17,11 +17,21 @@ interface DispatcherInterface
     public function setConfig($config);
 
     /**
+     * @return array
+     */
+    public function getConfig();
+
+    /**
      * @param RequestInterface $request
      *
      * @return Dispatcher
      */
     public function setRequest($request);
+
+    /**
+     * @return RequestInterface
+     */
+    public function getRequest();
 
     /**
      * @return ResponseInterface

@@ -9,7 +9,10 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="ApiModuleTests">
+        <testsuite name="FrameworkTests">
+            <directory suffix="Test.php">./library/tests</directory>
+        </testsuite>
+        <!--testsuite name="ApiModuleTests">
             <directory suffix="Test.php">./application/module/Api/tests</directory>
         </testsuite>
         <testsuite name="MainModuleTests">
@@ -17,7 +20,7 @@
         </testsuite>
         <testsuite name="ModelModuleTests">
             <directory suffix="Test.php">./application/module/Model/tests</directory>
-        </testsuite>
+        </testsuite-->
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">

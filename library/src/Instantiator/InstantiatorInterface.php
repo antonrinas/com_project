@@ -5,6 +5,12 @@ namespace Framework\Instantiator;
 interface InstantiatorInterface
 {
     /**
+     * @param array $factoriesMap
+     * @return Instantiator
+     */
+    public function setFactoriesMap($factoriesMap);
+
+    /**
      * @param string $className
      *
      * @return bool|mixed

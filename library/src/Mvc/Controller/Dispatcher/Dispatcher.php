@@ -83,6 +83,14 @@ class Dispatcher implements DispatcherInterface
     }
 
     /**
+     * @return array
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
      * @param RequestInterface $request
      *
      * @return Dispatcher
@@ -91,6 +99,14 @@ class Dispatcher implements DispatcherInterface
     {
         $this->request = $request;
         return $this;
+    }
+
+    /**
+     * @return RequestInterface
+     */
+    public function getRequest()
+    {
+        return $this->request;
     }
 
     /**

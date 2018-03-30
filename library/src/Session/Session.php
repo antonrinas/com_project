@@ -7,7 +7,7 @@ class Session implements SessionInterface
     public function __construct()
     {
         if (!isset($_SESSION)){
-            session_start();
+            @session_start();
         }
         if (!array_key_exists('application_session', $_SESSION)){
             $_SESSION['application_session'] = [];

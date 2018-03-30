@@ -75,7 +75,8 @@ class EventManager implements EventManagerInterface
         if (!array_key_exists($eventName, $this->eventsMap)) {
             return false;
         }
-        foreach ($this->eventsMap[$eventName] as $observer) {
+        $observers = $this->eventsMap[$eventName];
+        foreach ($observers as $observer) {
             $observer->handle($eventName, $params);
         }
 

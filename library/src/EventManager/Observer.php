@@ -45,6 +45,6 @@ abstract class Observer implements ObserverInterface
                 $eventName
             ));
         }
-        return call_user_func_array([$this, $eventName], $params);;
+        return call_user_func_array([$this, $eventName], $params);
     }
 }
