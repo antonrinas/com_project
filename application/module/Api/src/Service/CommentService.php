@@ -75,7 +75,8 @@ class CommentService implements CommentServiceInterface
                       ->setCreatedAt($currentDateTime)
                       ->setUpdatedAt($currentDateTime);
         $this->commentRepository->save($this->comment);
-        $this->pushAddedMessage();
+
+        return $this->pushAddedMessage();
     }
 
     /**
@@ -83,7 +84,7 @@ class CommentService implements CommentServiceInterface
      */
     private function pushAddedMessage()
     {
-        $this->pusherService->push('comments', 'added', [
+        return $this->pusherService->push('comments', 'added', [
             'id' => $this->comment->getId(),
             'user_name' => $this->comment->getUserName(),
             'content' => $this->comment->getContentChanged(),
