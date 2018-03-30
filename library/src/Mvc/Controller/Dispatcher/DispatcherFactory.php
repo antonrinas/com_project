@@ -16,7 +16,7 @@ class DispatcherFactory implements FactoryInterface
      *
      * @throws \Framework\Instantiator\InstantiatorException
      */
-    public function getInstance()
+    public function init()
     {
         return new Dispatcher(
             new Response(),

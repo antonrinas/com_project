@@ -23,12 +23,12 @@ class FrontControllerFactory implements FactoryInterface
     /**
      * @return FrontController
      */
-    public function getInstance()
+    public function init()
     {
         $router = new Router($this->config);
         $request = new Request();
         $dispatcherFactory = new DispatcherFactory();
-        $dispatcher = $dispatcherFactory->getInstance();
+        $dispatcher = $dispatcherFactory->init();
 
         return new FrontController($this->config, $router, $request, $dispatcher);
     }

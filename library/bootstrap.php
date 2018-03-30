@@ -7,4 +7,4 @@ $autoloader = new NamespaceAutoloader();
 $autoloader->register();
 
 $applicationFactory  = new \Framework\ApplicationFactory();
-$applicationFactory->getInstance()->start();
+$applicationFactory->init()->start();

@@ -18,6 +18,7 @@ class ApplicationFactory implements FactoryInterface
         $config = array_merge_recursive($routes, $generalConfig);
         $this->config = $config;
         $this->initEnviroment();
+        $this->initTimezone();
     }
 
     /**
@@ -25,11 +26,11 @@ class ApplicationFactory implements FactoryInterface
      *
      * @throws ApplicationException
      */
-    public function getInstance()
+    public function init()
     {
         $frontControllerFactory = new FrontControllerFactory($this->config);
 
-        return new Application($this->config, $frontControllerFactory->getInstance());
+        return new Application($this->config, $frontControllerFactory->init());
     }
 
     private function initEnviroment()
@@ -43,6 +44,10 @@ class ApplicationFactory implements FactoryInterface
             ini_set('log_errors', 'On');
             ini_set('error_log', ROOT.DS.'tmp'.DS.'logs'.DS.'error.log');
         }
+    }
+
+    private function initTimezone()
+    {
         if (array_key_exists('date_default_timezone', $this->config)) {
             date_default_timezone_set($this->config['date_default_timezone']);
         }

@@ -7,5 +7,5 @@ interface FactoryInterface
     /**
      * @return mixed
      */
-    public function getInstance();
+    public function init();
 }
