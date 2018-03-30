@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManager;
 use Framework\Mvc\Controller\ControllerInterface;
 use Framework\EventManager\EventManager;
 
-class BaseControllerFactory
+abstract class BaseControllerFactory
 {
     protected $observers;
     /**
@@ -23,6 +23,13 @@ class BaseControllerFactory
         $this->instantiator = $instantiator;
     }
 
+    /**
+     * @param ControllerInterface $controller
+     *
+     * @return ControllerInterface
+     *
+     * @throws \Framework\EventManager\EventManagerException
+     */
     protected function subscribeObservers(ControllerInterface $controller)
     {
         $eventManager = EventManager::getInstance();

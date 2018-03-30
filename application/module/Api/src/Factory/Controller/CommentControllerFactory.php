@@ -11,6 +11,14 @@ use Main\Factory\BaseControllerFactory;
 
 class CommentControllerFactory extends BaseControllerFactory implements FactoryInterface
 {
+    /**
+     * @param InstantiatorInterface $instantiator
+     *
+     * @return \Framework\Mvc\Controller\ControllerInterface
+     *
+     * @throws \Framework\EventManager\EventManagerException
+     * @throws \Framework\Instantiator\InstantiatorException
+     */
     public function __invoke(InstantiatorInterface $instantiator)
     {
         $commentService = $instantiator->instantiate(CommentServiceInterface::class);

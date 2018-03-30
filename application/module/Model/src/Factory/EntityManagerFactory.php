@@ -10,7 +10,6 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 use Framework\Instantiator\InstantiatorInterface;
 use Framework\Instantiator\FactoryInterface;
 
-
 class EntityManagerFactory implements FactoryInterface
 {
     public function __invoke(InstantiatorInterface $instantiator)

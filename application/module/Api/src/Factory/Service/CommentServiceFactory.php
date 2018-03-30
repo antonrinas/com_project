@@ -12,6 +12,13 @@ use Model\Entity\Comment;
 
 class CommentServiceFactory implements FactoryInterface
 {
+    /**
+     * @param InstantiatorInterface $instantiator
+     *
+     * @return CommentService
+     *
+     * @throws \Framework\Instantiator\InstantiatorException
+     */
     public function __invoke(InstantiatorInterface $instantiator)
     {
         $entityManager = $instantiator->instantiate(EntityManager::class);

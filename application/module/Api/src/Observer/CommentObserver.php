@@ -7,6 +7,9 @@ use Api\Service\CommentServiceInterface;
 
 class CommentObserver extends Observer
 {
+    /**
+     * @var array
+     */
     private $emotions = [
         ':-)))' => '<img src="/img/emoticons/happy.png" />',
         ')))' => '<img src="/img/emoticons/happy.png" />',
@@ -30,6 +33,13 @@ class CommentObserver extends Observer
         ';)' => '<img src="/img/emoticons/wink.png" />',
     ];
 
+    /**
+     * @param array $formData
+     * 
+     * @throws \Framework\Instantiator\InstantiatorException
+     *
+     * @return bool
+     */
     public function onSubmit($formData)
     {
         $content = $formData['content'];
@@ -39,5 +49,6 @@ class CommentObserver extends Observer
         $formData['content_changed'] = $content;
         $commentService = $this->instantiator->instantiate(CommentServiceInterface::class);
         $commentService->store($formData);
+        return $formData;
     }
 }

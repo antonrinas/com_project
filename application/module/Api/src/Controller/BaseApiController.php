@@ -5,13 +5,18 @@ namespace Api\Controller;
 use Framework\Mvc\Controller\Controller;
 use Api\Core\Constants;
 
-class BaseApiController extends Controller
+abstract class BaseApiController extends Controller
 {
     /**
      * @var string
      */
     protected $contentType = 'application/json';
 
+    /**
+     * @param array $messages
+     *
+     * @return string
+     */
     protected function getWarningResponse($messages)
     {
         return $this->getView()->setParams([

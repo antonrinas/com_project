@@ -22,6 +22,9 @@ class Comment extends BaseValidator
         ],
     ];
 
+    /**
+     * @var array
+     */
     protected $validators = [
         'user_name' => [
             [

@@ -78,6 +78,9 @@ class CommentService implements CommentServiceInterface
         $this->pushAddedMessage();
     }
 
+    /**
+     * @return void
+     */
     private function pushAddedMessage()
     {
         $this->pusherService->push('comments', 'added', [

@@ -6,10 +6,6 @@ use Pusher\Pusher;
 
 class PusherService implements PusherServiceInterface
 {
-    const AUTH_KEY = 'cdb14d8667c152df38cb';
-    const SECRET = '6ab7fc3e2dc14d56431c';
-    const APP_ID = '500230';
-
     /**
      * @var Pusher
      */
@@ -17,15 +13,17 @@ class PusherService implements PusherServiceInterface
 
     public function __construct()
     {
+        $config = require (ROOT . DS . 'config' . DS . 'pusher.php');
+
         $options = [
             'cluster' => 'eu',
             'encrypted' => false
         ];
         $this->pusher = new Pusher(
-            self::AUTH_KEY,
-            self::SECRET,
-            self::APP_ID,
-            $options
+            $config['auth_key'],
+            $config['secret'],
+            $config['app_id'],
+            $config['options']
         );
     }
 
