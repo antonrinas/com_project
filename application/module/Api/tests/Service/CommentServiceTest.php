@@ -98,6 +98,8 @@ class CommentRepository implements CommentRepositoryInterface
 
 class PusherService implements PusherServiceInterface
 {
+    public function setPusher($pusher){}
+
     public function push($channelNames, $eventName, $data)
     {
         return true;

@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 use Api\Validator\Comment;
 use Main\Validator\BaseValidatorInterface;
 
-class CommentTest extends TestCase
+class CommentValidatorTest extends TestCase
 {
     public function testCanBeCreated()
     {

@@ -36,7 +36,7 @@ class CommentRepository implements CommentRepositoryInterface
             $this->entityManager->persist($entity);
         }
 
-        $this->entityManager->flush();
+        return $this->entityManager->flush();
     }
 
     /**
