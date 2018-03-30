@@ -82,8 +82,8 @@ class CommentService implements CommentServiceInterface
     {
         $this->pusherService->push('comments', 'added', [
             'id' => $this->comment->getId(),
-            'user_name' => urlencode($this->comment->getUserName()),
-            'content' => urlencode($this->comment->getContentChanged()),
+            'user_name' => $this->comment->getUserName(),
+            'content' => $this->comment->getContentChanged(),
             'created_at' => $this->comment->getCreatedAt()->format('d.m.Y H:i:s')
         ]);
     }

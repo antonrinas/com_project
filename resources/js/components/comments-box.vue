@@ -30,12 +30,10 @@
 <script>
     import commentsList from './comments-list.vue';
     import addCommentForm from './add-comment-form.vue'
-    import decodeValues from './../mixins/decode-values';
     import messanger from './messanger.vue';
     import bPagination from 'bootstrap-vue/es/components/pagination/pagination';
 
     export default {
-        mixins: [decodeValues],
         components: {
             'comments-list': commentsList,
             'add-comment-form': addCommentForm,
@@ -93,7 +91,7 @@
                     return;
                 }
                 this.pagination.totalRows++;
-                this.comments.unshift(this.decodeValues(data));
+                this.comments.unshift(data);
                 if (this.commentsLength > this.pagination.perPage) {
                     this.comments.pop();
                 }
@@ -106,7 +104,7 @@
                     }
                 }).then(function (response) {
                     if (response.status === 200){
-                        vueInstance.comments = vueInstance.decodeValues(response.data.data);
+                        vueInstance.comments = response.data.data;
                         vueInstance.pagination.totalRows = parseInt(response.data.total_rows);
                         vueInstance.pagination.perPage = parseInt(response.data.per_page);
                     } else {

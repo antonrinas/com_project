@@ -43,8 +43,8 @@ class Comment extends BaseValidator
             [
                 'name' => 'stringLengthValidator',
                 'min' => 0,
-                'max' => 1000,
-                'message' => 'Длина должна быть от 0 до 1000 символов'
+                'max' => 500,
+                'message' => 'Длина должна быть от 0 до 500 символов'
             ],
         ),
     ];
