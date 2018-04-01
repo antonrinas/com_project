@@ -16,7 +16,7 @@
 - setup local server;
 - clone repository https://github.com/antonrinas/com_project.git;
 - all configs are placed in `config` folder (use `db_doctrine.php` for db settings);
-- DB dumb is in `db` folder;
+- DB dump is in `db` folder;
 
 ## Make changes in build.js
 
