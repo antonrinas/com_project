@@ -95,7 +95,5 @@ class CommentValidatorTest extends TestCase
             'content' => 'test',
         ]);
         $this->assertTrue($validator->isValid());
-
-        echo  PHP_EOL . "#CommentValidator tests are completed#" . PHP_EOL;
     }
 }

@@ -29,10 +29,7 @@ class IndexControllerTest extends TestCase
     public function testCanShowIndexPage($controller)
     {
         echo PHP_EOL . "    ---- Can show index page test" . PHP_EOL;
-
         $this->assertSame(true, $controller->index());
-
-        echo  PHP_EOL . "#IndexController tests are completed#" . PHP_EOL;
     }
 }
 

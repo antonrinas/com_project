@@ -68,8 +68,6 @@ class CommentServiceTest extends TestCase
                 'content_changed' => ''
             ]
         ));
-
-        echo  PHP_EOL . "#CommentService tests are completed#" . PHP_EOL;
     }
 }
 

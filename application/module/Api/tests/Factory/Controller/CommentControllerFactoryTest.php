@@ -58,9 +58,6 @@ class CommentControllerFactoryTest extends TestCase
     public function testInitialEventSubscription($controller)
     {
         echo PHP_EOL . "    ---- Initial event subscription done test" . PHP_EOL;
-
         $this->assertNotEmpty($controller->getEventManager()->getEventsMap());
-
-        echo  PHP_EOL . "#CommentControllerFactory tests are completed#" . PHP_EOL;
     }
 }

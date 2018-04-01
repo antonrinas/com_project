@@ -37,7 +37,5 @@ class CommentTest extends TestCase
         $this->assertSame('created at', $entity->getCreatedAt());
         $entity->setUpdatedAt('updated at');
         $this->assertSame('updated at', $entity->getUpdatedAt());
-
-        echo  PHP_EOL . "#CommentEntity tests are completed#" . PHP_EOL;
     }
 }

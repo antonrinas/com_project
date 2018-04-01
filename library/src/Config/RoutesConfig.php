@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Администратор
- * Date: 01.04.2018
- * Time: 10:49
- */
 
 namespace Framework\Config;
-
 
 class RoutesConfig implements ConfigInterface
 {

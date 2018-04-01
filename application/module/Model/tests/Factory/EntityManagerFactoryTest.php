@@ -32,7 +32,5 @@ class EntityManagerFactoryTest extends TestCase
             EntityManager::class,
             $entityManager
         );
-
-        echo  PHP_EOL . "#EntityManagerFactory tests are completed#" . PHP_EOL;
     }
 }

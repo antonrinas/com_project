@@ -85,8 +85,6 @@ class CommentControllerTest extends TestCase
             'content' => '',
         ]);
         $this->assertSame(1, strpos($controller->store(), '"status":"warning"'));
-
-        echo  PHP_EOL . "#CommentController tests are completed#" . PHP_EOL;
     }
 }
 

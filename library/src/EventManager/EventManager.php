@@ -2,7 +2,6 @@
 
 namespace Framework\EventManager;
 
-
 class EventManager implements EventManagerInterface
 {
     /**

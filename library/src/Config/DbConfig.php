@@ -9,6 +9,11 @@ class DbConfig implements ConfigInterface
      */
     private $config = [];
 
+    /**
+     * DbConfig constructor.
+     * @param array $config
+     * @throws ApplicationConfigException
+     */
     public function __construct($config = [])
     {
         if (!$config) {
@@ -23,7 +28,8 @@ class DbConfig implements ConfigInterface
     }
 
     /**
-     * @param array $config
+     * @param $config
+     * @throws ApplicationConfigException
      */
     private function checkConfig($config)
     {

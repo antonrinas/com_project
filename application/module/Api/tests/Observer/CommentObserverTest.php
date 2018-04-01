@@ -43,8 +43,6 @@ class CommentObserverTest extends TestCase
             ],
             $observer->onSubmit($formData)
         );
-
-        echo  PHP_EOL . "#CommentObserver tests are completed#" . PHP_EOL;
     }
 }
 

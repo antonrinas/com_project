@@ -31,7 +31,5 @@ class CommentServiceFactoryTest extends TestCase
             CommentService::class,
             $service
         );
-
-        echo  PHP_EOL . "#CommentServiceFactory tests are completed#" . PHP_EOL;
     }
 }

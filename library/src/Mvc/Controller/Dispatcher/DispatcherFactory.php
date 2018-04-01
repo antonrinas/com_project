@@ -30,6 +30,10 @@ class DispatcherFactory implements FactoryInterface
      */
     private $response;
 
+    /**
+     * DispatcherFactory constructor.
+     * @param RouterInterface $router
+     */
     public function __construct(RouterInterface $router)
     {
         $this->router = $router;
