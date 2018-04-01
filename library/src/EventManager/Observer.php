@@ -16,6 +16,10 @@ abstract class Observer implements ObserverInterface
      */
     protected $instantiator;
 
+    /**
+     * Observer constructor.
+     * @param InstantiatorInterface $instantiator
+     */
     public function __construct(InstantiatorInterface $instantiator)
     {
         $this->instantiator = $instantiator;

@@ -10,6 +10,11 @@ class EventManager implements EventManagerInterface
      */
     private $eventsMap = [];
 
+    /**
+     * EventManager constructor.
+     * @param bool $directCall
+     * @throws EventManagerException
+     */
     public function __construct($directCall = true)
     {
         if ($directCall) {

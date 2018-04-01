@@ -8,15 +8,13 @@ use Framework\Mvc\Controller\Router\RouterException;
 use Framework\Mvc\Controller\Dispatcher\DispatcherFactory;
 use Framework\Config\ApplicationConfig;
 use Framework\Config\ApplicationConfigException;
-use Framework\Instantiator\InstantiatorException;
 
 class FrontControllerFactory implements FactoryInterface
 {
     /**
      * @return FrontController
-     * @throws RouterException
      * @throws ApplicationConfigException
-     * @throws InstantiatorException
+     * @throws RouterException
      */
     public function init()
     {

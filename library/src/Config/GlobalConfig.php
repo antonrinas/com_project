@@ -9,6 +9,10 @@ class GlobalConfig implements ConfigInterface
      */
     private $config = [];
 
+    /**
+     * GlobalConfig constructor.
+     * @throws ApplicationConfigException
+     */
     public function __construct()
     {
         $configPath = ROOT . DS . 'config' . DS . 'config.php';

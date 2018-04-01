@@ -2,19 +2,19 @@
 
 namespace Framework\Instantiator;
 
+use Framework\Config\ApplicationConfig;
+
 class Instantiator implements InstantiatorInterface
 {
     private $factoriesMap = [];
 
+    /**
+     * Instantiator constructor.
+     * @throws \Framework\Config\ApplicationConfigException
+     */
     public function __construct()
     {
-        $modulesConfig = require (ROOT . DS . 'config' . DS . 'modules.php');
-        foreach ($modulesConfig as $namespace){
-            $configPath = ROOT . DS . 'application' . DS . 'module' . DS . $namespace . DS . 'config' . DS . 'config.php';
-            if (!is_file($configPath)) {
-                throw new InstantiatorException("Config file not found $configPath");
-            }
-            $config = require ($configPath);
+        foreach (ApplicationConfig::getInstance()->getModulesConfig()->getConfig() as $namespace => $config){
             if (!array_key_exists('factories', $config)) {
                 continue;
             }

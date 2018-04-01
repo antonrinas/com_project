@@ -19,8 +19,11 @@ class Application implements ApplicationInterface
 
     /**
      * Application constructor.
+     *
      * @param ApplicationConfigInterface $config
      * @param FrontControllerInterface $frontController
+     *
+     * @throws Config\ApplicationConfigException
      */
     public function __construct(ApplicationConfigInterface $config, FrontControllerInterface $frontController)
     {
@@ -30,12 +33,18 @@ class Application implements ApplicationInterface
         $this->frontController = $frontController;
     }
 
+    /**
+     * @return void
+     */
     public function start()
     {
         $response = $this->frontController->handleRequest();
         echo $response;
     }
 
+    /**
+     * @throws Config\ApplicationConfigException
+     */
     private function initEnviroment()
     {
         if ($this->config->getGlobalConfig()->getConfig()['development']){
@@ -49,6 +58,9 @@ class Application implements ApplicationInterface
         }
     }
 
+    /**
+     * @throws Config\ApplicationConfigException
+     */
     private function initTimezone()
     {
         date_default_timezone_set($this->config->getGlobalConfig()->getConfig()['date_default_timezone']);

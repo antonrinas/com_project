@@ -2,6 +2,9 @@
 
 class NamespaceAutoloader
 {
+    /**
+     * @var array
+     */
     protected $namespacesMap = [];
 
     public function __construct()

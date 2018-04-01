@@ -16,15 +16,14 @@ class DbConfig implements ConfigInterface
             throw new ApplicationConfigException("Db config file $configPath was not found");
         }
         $config = require (ROOT . DS . 'config' . DS . 'db.php');
-        $this->chechConfig($config);
+        $this->checkConfig($config);
         $this->config = $config;
     }
 
     /**
-     * @param $config
-     * @throws ApplicationConfigException
+     * @param array $config
      */
-    private function chechConfig($config)
+    private function checkConfig($config)
     {
         if (!array_key_exists('db', $config)){
             throw new ModelException("Database settings is required. You must provide 'db' key in the config.");

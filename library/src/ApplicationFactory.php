@@ -8,9 +8,9 @@ use Framework\Config\ApplicationConfig;
 class ApplicationFactory implements FactoryInterface
 {
     /**
-     * @return Application
-     *
+     * @return Application|mixed
      * @throws Config\ApplicationConfigException
+     * @throws Mvc\Controller\Router\RouterException
      */
     public function init()
     {

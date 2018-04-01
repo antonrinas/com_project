@@ -39,7 +39,7 @@ class ControllerFactory implements FactoryInterface
         $controllerName = $route['controller'];
         $className = $moduleName . '\\' . $controllerNamespace . '\\' . $controllerName . 'Controller';
         $methodName = $route['method'];
-        $this->checkClassMethodAvalability($className, $methodName);
+        $this->checkClassMethodAvailability($className, $methodName);
         $moduleConfig = ApplicationConfig::getInstance()->getModulesConfig()->getConfig()[$moduleName];
         if ($this->instantiator->findFactory($className)) {
             $controller = $this->instantiator->instantiate($className);
@@ -67,7 +67,7 @@ class ControllerFactory implements FactoryInterface
      *
      * @throws ControllerException
      */
-    private function checkClassMethodAvalability($className, $methodName)
+    private function checkClassMethodAvailability($className, $methodName)
     {
         if (!class_exists($className)) {
             throw new ControllerException(sprintf("Controller %s was not found",

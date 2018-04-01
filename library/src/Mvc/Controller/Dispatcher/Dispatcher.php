@@ -3,10 +3,6 @@
 namespace Framework\Mvc\Controller\Dispatcher;
 
 use Framework\Mvc\Controller\Response\ResponseInterface;
-use Framework\Mvc\View\ViewModelInterface;
-use Framework\Mvc\View\JsonModelInterface;
-use Framework\Session\SessionInterface;
-use Framework\Instantiator\InstantiatorInterface;
 use Framework\Mvc\Controller\Request\RequestInterface;
 use Framework\Mvc\Controller\Router\RouterInterface;
 use Framework\Mvc\Controller\ControllerInterface;

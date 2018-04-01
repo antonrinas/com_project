@@ -16,6 +16,10 @@ class ModulesConfig implements ConfigInterface
      */
     private $config = [];
 
+    /**
+     * ModulesConfig constructor.
+     * @throws ApplicationConfigException
+     */
     public function __construct()
     {
         $configPath = ROOT . DS . 'config' . DS . 'modules.php';

@@ -16,6 +16,10 @@ class RoutesConfig implements ConfigInterface
      */
     private $config = [];
 
+    /**
+     * RoutesConfig constructor.
+     * @throws ApplicationConfigException
+     */
     public function __construct()
     {
         $configPath = ROOT . DS . 'config' . DS . 'routes.php';
