@@ -4,32 +4,26 @@ namespace Framework\Mvc\Controller;
 
 use Framework\FactoryInterface;
 use Framework\Mvc\Controller\Router\Router;
-use Framework\Mvc\Controller\Request\Request;
+use Framework\Mvc\Controller\Router\RouterException;
 use Framework\Mvc\Controller\Dispatcher\DispatcherFactory;
-
+use Framework\Config\ApplicationConfig;
+use Framework\Config\ApplicationConfigException;
+use Framework\Instantiator\InstantiatorException;
 
 class FrontControllerFactory implements FactoryInterface
 {
     /**
-     * @var array
-     */
-    private $config;
-
-    public function __construct($config)
-    {
-        $this->config = $config['routes'];
-    }
-
-    /**
      * @return FrontController
+     * @throws RouterException
+     * @throws ApplicationConfigException
+     * @throws InstantiatorException
      */
     public function init()
     {
-        $router = new Router($this->config);
-        $request = new Request();
-        $dispatcherFactory = new DispatcherFactory();
+        $router = new Router(ApplicationConfig::getInstance()->getRoutesConfig());
+        $dispatcherFactory = new DispatcherFactory($router);
         $dispatcher = $dispatcherFactory->init();
 
-        return new FrontController($this->config, $router, $request, $dispatcher);
+        return new FrontController($dispatcher);
     }
 }

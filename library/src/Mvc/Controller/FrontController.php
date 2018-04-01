@@ -31,20 +31,10 @@ class FrontController implements FrontControllerInterface
 
     /**
      * FrontController constructor.
-     * @param $config
-     * @param RouterInterface $router
-     * @param RequestInterface $request
      * @param DispatcherInterface $dispatcher
      */
-    public function __construct(
-        $config,
-        RouterInterface $router,
-        RequestInterface $request,
-        DispatcherInterface $dispatcher)
+    public function __construct(DispatcherInterface $dispatcher)
     {
-        $this->config = $config;
-        $this->router = $router;
-        $this->request = $request;
         $this->dispatcher = $dispatcher;
     }
 
@@ -57,34 +47,6 @@ class FrontController implements FrontControllerInterface
      */
     public function handleRequest()
     {
-        $this->initRequest();
-        return $this->dispatch();
-    }
-
-    /**
-     * Set initial request properties
-     */
-    private function initRequest()
-    {
-        $this->request->setRequestMethod($_SERVER['REQUEST_METHOD']);
-        $this->request->setGetParams($this->router->getGetParams());
-        $this->request->setParams($this->router->getParams());
-        $this->request->setPostParams($_POST);
-        $this->request->setCookies($_COOKIE);
-        $this->request->setFiles($_FILES);
-    }
-
-    /**
-     * @return ResponseInterface
-     *
-     * @throws Dispatcher\DispatcherException
-     *
-     * @throws \Framework\Mvc\View\ViewModelException
-     */
-    private function dispatch()
-    {
-        return $this->dispatcher->setConfig($this->router->getMatchedRoute())
-                                ->setRequest($this->request)
-                                ->dispatch();
+        return $this->dispatcher->dispatch();
     }
 }

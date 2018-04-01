@@ -2,6 +2,8 @@
 
 namespace Framework\Mvc\Controller\Router;
 
+use Framework\Config\ConfigInterface;
+
 class Router implements RouterInterface
 {
     /**
@@ -52,13 +54,13 @@ class Router implements RouterInterface
     /**
      * Router constructor.
      *
-     * @param array $routes
+     * @param ConfigInterface $config
      *
      * @throws RouterException
      */
-    public function __construct($routes)
+    public function __construct(ConfigInterface $config)
     {
-        $this->routes = $routes;
+        $this->config = $config;
         $parts = parse_url($_SERVER['REQUEST_URI']);
         if (array_key_exists('query', $parts)){
             parse_str($parts['query'], $query);
@@ -76,7 +78,9 @@ class Router implements RouterInterface
      */
     private function findMatchedRoute()
     {
-        foreach ($this->routes as $rules){
+        $routes = $this->config->getConfig()['routes'];
+
+        foreach ($routes as $rules){
             if ($rules['request_method'] !== $_SERVER['REQUEST_METHOD']){
                 continue;
             }
@@ -95,17 +99,43 @@ class Router implements RouterInterface
 
                 $matches = preg_replace('/' . $pattern . '/', implode('|', $replacement), $this->url);
                 $this->params = explode('|', $matches);
+                $this->checkRoute($rules);
                 $this->matchedRoute = $rules;
 
                 return true;
             }
             $pattern = str_replace("/", "\/", $rules['url']);
             if (preg_match('/' . $pattern . '$/', $this->url)){
+                $this->checkRoute($rules);
                 $this->matchedRoute = $rules;
 
                 return true;
             }
         }
         throw new RouterException('Matched route was not found');
+    }
+
+    /**
+     * @param array $route
+     *
+     * @throws RouterException
+     */
+    private function checkRoute($route)
+    {
+        if (!array_key_exists('module', $route)){
+            throw new RouterException("Module setting is required. You must provide 'module' key in the route config.");
+        }
+        if (!array_key_exists('namespace', $route)){
+            throw new RouterException("Namespace setting is required. You must provide 'namespace' key in the route config.");
+        }
+        if (!array_key_exists('controller', $route)){
+            throw new RouterException("Controller name setting is required. You must provide 'controller' key in the route config.");
+        }
+        if (!array_key_exists('method', $route)){
+            throw new RouterException("Method mane setting is required. You must provide 'method' key in the route config.");
+        }
+        if (!array_key_exists('request_method', $route)){
+            throw new RouterException("Request method setting is required. You must provide 'request_method' key in the route config.");
+        }
     }
 }
