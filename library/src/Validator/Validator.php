@@ -131,7 +131,9 @@ class Validator implements ValidatorInterface
     public function setElementValue($elementName, $value)
     {
         $elements = $this->getFormElements();
-        if (array_key_exists($elementName, $elements)) $elements[$elementName] = $value;
+        if (array_key_exists($elementName, $elements)){
+            $elements[$elementName] = $value;
+        }
         $this->setFormElements($elements);
         return $this;
     }
@@ -252,7 +254,9 @@ class Validator implements ValidatorInterface
     protected function emailAddressValidator($elementName, $message = '')
     {
         $value = $this->getElementValue($elementName);
-        if (filter_var($value, FILTER_VALIDATE_EMAIL)) return true;
+        if (filter_var($value, FILTER_VALIDATE_EMAIL)){
+            return true;
+        }
         $this->addErrorMessage('email_address', $elementName, $message);
         return false;
     }

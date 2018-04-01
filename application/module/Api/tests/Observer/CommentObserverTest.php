@@ -13,7 +13,7 @@ class CommentObserverTest extends TestCase
         echo PHP_EOL . " -- API: CommentObserver tests" . PHP_EOL;
         echo PHP_EOL . "    ---- Can be created test" . PHP_EOL;
 
-        $observer = new CommentObserver(new Instantiator());
+        $observer = new CommentObserver(new TestInstantiator());
         $this->assertInstanceOf(
             CommentObserver::class,
             $observer
@@ -48,11 +48,13 @@ class CommentObserverTest extends TestCase
     }
 }
 
-class Instantiator implements InstantiatorInterface
+class TestInstantiator implements InstantiatorInterface
 {
     private $factoriesMap = [
         Api\Service\CommentServiceInterface::class => Api\Factory\Service\CommentServiceFactory::class,
     ];
+
+    public function setFactoriesMap($factoriesMap){}
 
     public function findFactory($className)
     {

@@ -12,15 +12,15 @@
         <testsuite name="FrameworkTests">
             <directory suffix="Test.php">./library/tests</directory>
         </testsuite>
-        <!--testsuite name="ApiModuleTests">
-            <directory suffix="Test.php">./application/module/Api/tests</directory>
-        </testsuite>
         <testsuite name="MainModuleTests">
             <directory suffix="Test.php">./application/module/Main/tests</directory>
         </testsuite>
         <testsuite name="ModelModuleTests">
             <directory suffix="Test.php">./application/module/Model/tests</directory>
-        </testsuite-->
+        </testsuite>
+        <testsuite name="ApiModuleTests">
+            <directory suffix="Test.php">./application/module/Api/tests</directory>
+        </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">

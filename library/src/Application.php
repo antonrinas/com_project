@@ -40,6 +40,7 @@ class Application implements ApplicationInterface
     {
         $response = $this->frontController->handleRequest();
         echo $response;
+        return true;
     }
 
     /**
