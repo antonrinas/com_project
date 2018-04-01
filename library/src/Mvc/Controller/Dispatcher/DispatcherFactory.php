@@ -2,16 +2,13 @@
 
 namespace Framework\Mvc\Controller\Dispatcher;
 
-use Framework\FactoryInterface;
 use Framework\Mvc\Controller\Response\Response;
-use Framework\Mvc\View\ViewModel;
-use Framework\Mvc\View\JsonModel;
-use Framework\Session\Session;
-use Framework\Instantiator\Instantiator;
 use Framework\Mvc\Controller\ControllerFactory;
-
-use Framework\Mvc\Controller\Router\RouterInterface;
 use Framework\Mvc\Controller\Request\Request;
+use Framework\FactoryInterface;
+use Framework\Mvc\Controller\Response\ResponseInterface;
+use Framework\Mvc\Controller\ControllerInterface;
+use Framework\Mvc\Controller\Router\RouterInterface;
 use Framework\Mvc\Controller\Request\RequestInterface;
 
 class DispatcherFactory implements FactoryInterface
@@ -24,12 +21,28 @@ class DispatcherFactory implements FactoryInterface
      * @var RequestInterface
      */
     private $request;
+    /**
+     * @var ControllerInterface
+     */
+    private $controller;
+    /**
+     * @var ResponseInterface
+     */
+    private $response;
 
     public function __construct(RouterInterface $router)
     {
         $this->router = $router;
         $this->request = new Request();
-        $this->initRequest();
+        $this->request->setRequestMethod($_SERVER['REQUEST_METHOD'])
+                      ->setGetParams($this->router->getGetParams())
+                      ->setParams($this->router->getParams())
+                      ->setPostParams($_POST)
+                      ->setCookies($_COOKIE)
+                      ->setFiles($_FILES);
+        $controllerFactory = new ControllerFactory($this->request, $this->router);
+        $this->controller = $controllerFactory->init();
+        $this->response = new Response();
     }
 
     /**
@@ -37,27 +50,11 @@ class DispatcherFactory implements FactoryInterface
      */
     public function init()
     {
-        $controllerFactory = new ControllerFactory($this->request, $this->router);
-        $controller = $controllerFactory->init();
-
         return new Dispatcher(
             $this->request,
             $this->router,
-            new Response(),
-            $controller
+            $this->response,
+            $this->controller
         );
-    }
-
-    /**
-     * Set initial request properties
-     */
-    private function initRequest()
-    {
-        $this->request->setRequestMethod($_SERVER['REQUEST_METHOD']);
-        $this->request->setGetParams($this->router->getGetParams());
-        $this->request->setParams($this->router->getParams());
-        $this->request->setPostParams($_POST);
-        $this->request->setCookies($_COOKIE);
-        $this->request->setFiles($_FILES);
     }
 }

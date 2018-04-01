@@ -2,12 +2,15 @@
 
 namespace Framework\Mvc\Controller;
 
+use Framework\Session\Session;
+use Framework\Mvc\View\JsonModel;
+use Framework\Mvc\View\ViewModel;
 use Framework\Mvc\Controller\Request\RequestInterface;
 use Framework\Mvc\Controller\Response\ResponseInterface;
-use Framework\Mvc\View\ViewModelInterface;
-use Framework\Mvc\View\JsonModelInterface;
-use Framework\Session\SessionInterface;
 use Framework\EventManager\EventManagerInterface;
+use Framework\Session\SessionInterface;
+use Framework\Mvc\View\JsonModelInterface;
+use Framework\Mvc\View\ViewModelInterface;
 
 abstract class Controller implements ControllerInterface
 {
@@ -52,6 +55,17 @@ abstract class Controller implements ControllerInterface
      * @var EventManagerInterface
      */
     protected $eventManager;
+
+    public function __construct()
+    {
+        if ($this->getContentType() === 'text/html') {
+            $this->setView(new ViewModel());
+        }
+        if ($this->getContentType() === 'application/json'){
+            $this->setView(new JsonModel());
+        }
+        $this->setSession(new Session());
+    }
 
     /**
      * @return RequestInterface

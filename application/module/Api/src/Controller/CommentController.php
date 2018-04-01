@@ -25,6 +25,7 @@ class CommentController extends BaseApiController
      */
     public function __construct(CommentServiceInterface $commentService, BaseValidatorInterface $validator)
     {
+        parent::__construct();
         $this->commentService = $commentService;
         $this->validator = $validator;
     }

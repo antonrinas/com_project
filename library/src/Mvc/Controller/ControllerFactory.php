@@ -7,13 +7,7 @@ use Framework\Mvc\Controller\Router\RouterInterface;
 use Framework\Instantiator\Instantiator;
 use Framework\Instantiator\InstantiatorInterface;
 use Framework\Mvc\Controller\Request\RequestInterface;
-use Framework\Mvc\View\JsonModel;
-use Framework\Mvc\View\ViewModelInterface;
-use Framework\Mvc\View\ViewModel;
-use Framework\Mvc\View\JsonModelInterface;
 use Framework\Config\ApplicationConfig;
-use Framework\Session\Session;
-use Framework\Session\SessionInterface;
 
 class ControllerFactory implements FactoryInterface
 {
@@ -29,27 +23,12 @@ class ControllerFactory implements FactoryInterface
      * @var InstantiatorInterface
      */
     private $instantiator;
-    /**
-     * @var ViewModelInterface
-     */
-    private $viewModel;
-    /**
-     * @var JsonModelInterface
-     */
-    private $jsonModel;
-    /**
-     * @var SessionInterface
-     */
-    private $session;
 
     public function __construct(RequestInterface $request, RouterInterface $router)
     {
         $this->request = $request;
         $this->router = $router;
         $this->instantiator = new Instantiator();
-        $this->viewModel = new ViewModel();
-        $this->jsonModel = new JsonModel();
-        $this->session = new Session();
     }
 
     public function init()
@@ -69,20 +48,15 @@ class ControllerFactory implements FactoryInterface
         }
         $this->checkControllerContentType($controller);
         $controller->setRequest($this->request)
-            ->setModuleConfig($moduleConfig)
-            ->setRoute($route);
+                   ->setModuleConfig($moduleConfig)
+                   ->setRoute($route);
 
         if ($controller->getContentType() === 'text/html'){
-            $this->viewModel->setModuleConfig($moduleConfig)
-                ->setControllerName($controllerName)
-                ->setMethodName($route['method']);
-
-            $controller->setView($this->viewModel);
+            $controller->getView()
+                       ->setModuleConfig($moduleConfig)
+                       ->setControllerName($controllerName)
+                       ->setMethodName($route['method']);
         }
-        if ($controller->getContentType() === 'application/json'){
-            $controller->setView($this->jsonModel);
-        }
-        $controller->setSession($this->session);
 
         return $controller;
     }
