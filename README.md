@@ -1,8 +1,6 @@
 # Com.project
 
-[![Coverage Status](https://coveralls.io/repos/antonrinas/com_project/badge.svg?branch=master)](https://coveralls.io/r/antonrinas/com_project?branch=master)
-
-##Features
+###Features
 
 - add comments using pusher;
 - saving comments in DB;
@@ -11,19 +9,20 @@
 - emoji icons auto-replacement;
 - based on my framework;
 - all classes are covered by tests;
+- event manager with pluggable observers (observers are registered automatically if it are exist in observer's DB table);
 
-##Installation
+###Installation
 
 - setup local server;
 - clone repository https://github.com/antonrinas/com_project.git;
 - all configs are placed in 'config' folder (use 'db_doctrine.php' for db settings);
-- DB dumb is in 'db' folred;
+- DB dumb is in 'db' folder;
 
-##Make changes in build.js
+###Make changes in build.js
 - `$ npm install`
 - `$ npm run-build`
 - or
 - `$ npm run-build-production`
 
-##Run tests
+###Run tests
 - `$ .\vendor\bin\phpunit`
