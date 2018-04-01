@@ -1,5 +1,7 @@
 # Com.project
 
+[![Coverage Status](https://coveralls.io/repos/antonrinas/com_project/badge.svg?branch=master)](https://coveralls.io/r/antonrinas/com_project?branch=master)
+
 ##Features
 
 - add comments using pusher;
