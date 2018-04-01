@@ -61,7 +61,8 @@ class Router implements RouterInterface
     public function __construct(ConfigInterface $config)
     {
         $this->config = $config;
-        $parts = parse_url($_SERVER['REQUEST_URI']);
+        $uri = array_key_exists('REQUEST_URI', $_SERVER) ? $_SERVER['REQUEST_URI'] : '/';
+        $parts = parse_url($uri);
         if (array_key_exists('query', $parts)){
             parse_str($parts['query'], $query);
             $this->getParams = $query;
@@ -79,9 +80,9 @@ class Router implements RouterInterface
     private function findMatchedRoute()
     {
         $routes = $this->config->getConfig()['routes'];
-
+        $requestMethod = array_key_exists('REQUEST_METHOD', $_SERVER) ? $_SERVER['REQUEST_METHOD'] : 'GET';
         foreach ($routes as $rules){
-            if ($rules['request_method'] !== $_SERVER['REQUEST_METHOD']){
+            if ($rules['request_method'] !== $requestMethod){
                 continue;
             }
             if (array_key_exists('params', $rules)){

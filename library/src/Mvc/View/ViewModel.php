@@ -49,16 +49,16 @@ class ViewModel implements ViewModelInterface
     private function checkConfig($config)
     {
         if (!array_key_exists('views_path', $config)){
-            throw new DispatcherException("Views path setting is required. You must provide 'views_path' key in the module config.");
+            throw new ViewModelException("Views path setting is required. You must provide 'views_path' key in the module config.");
         }
         if (!array_key_exists('layouts', $config)){
-            throw new DispatcherException("Layouts setting is required. You must provide 'layouts' key in the module config.");
+            throw new ViewModelException("Layouts setting is required. You must provide 'layouts' key in the module config.");
         }
         if (!$config['layouts']){
-            throw new DispatcherException("You must provide at least one layout in the 'layouts' module config.");
+            throw new ViewModelException("You must provide at least one layout in the 'layouts' module config.");
         }
         if (!array_key_exists('default', $config['layouts'])){
-            throw new DispatcherException("Default layout is required. You must provide 'default' key in the 'layouts' module config.");
+            throw new ViewModelException("Default layout is required. You must provide 'default' key in the 'layouts' module config.");
         }
     }
 

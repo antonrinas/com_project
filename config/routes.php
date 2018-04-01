@@ -2,6 +2,10 @@
 
 return [
     'routes' => [
+        /**
+         * Default route
+         * Do not remove, it is used in tests
+         */
         [
             'url' => '/',
             'request_method' => 'GET',

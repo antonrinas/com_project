@@ -194,7 +194,7 @@ abstract class Controller implements ControllerInterface
      *
      * @return ControllerInterface
      */
-    public function setEventManager(EventManagerInterface $eventManager)
+    public function setEventManager($eventManager)
     {
         $this->eventManager = $eventManager;
         return $this;

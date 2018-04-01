@@ -92,7 +92,7 @@ interface ControllerInterface
      *
      * @return BaseControllerInterface
      */
-    public function setEventManager(EventManagerInterface $eventManager);
+    public function setEventManager($eventManager);
 
     /**
      * @return EventManagerInterface

@@ -52,7 +52,7 @@ class NamespaceAutoloader
 
             if (!empty($this->namespacesMap[$namespace])) {
                 $filePath = $this->namespacesMap[$namespace] . '/' . implode('/', $pathParts) . '.php';
-                require_once $filePath;
+                require ($filePath);
                 return true;
             }
         }

@@ -18,16 +18,19 @@ class RoutesConfig implements ConfigInterface
 
     /**
      * RoutesConfig constructor.
+     * @param array $config
      * @throws ApplicationConfigException
      */
-    public function __construct()
+    public function __construct($config = [])
     {
-        $configPath = ROOT . DS . 'config' . DS . 'routes.php';
-        if (!file_exists($configPath)) {
-            throw new ApplicationConfigException("Routes config file $configPath was not found");
+        if (!$config) {
+            $configPath = ROOT . DS . 'config' . DS . 'routes.php';
+            if (!file_exists($configPath)) {
+                throw new ApplicationConfigException("Routes config file $configPath was not found");
+            }
+            $config = require (ROOT . DS . 'config' . DS . 'routes.php');
         }
-        $config = require (ROOT . DS . 'config' . DS . 'routes.php');
-        $this->chechConfig($config);
+        $this->checkConfig($config);
         $this->config = $config;
     }
 
@@ -35,7 +38,7 @@ class RoutesConfig implements ConfigInterface
      * @param $config
      * @throws ApplicationConfigException
      */
-    private function chechConfig($config)
+    private function checkConfig($config)
     {
         if (!is_array($config)) {
             throw new ApplicationConfigException("Routes config must be array");

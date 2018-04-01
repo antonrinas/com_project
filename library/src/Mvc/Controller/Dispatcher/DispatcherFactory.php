@@ -34,7 +34,7 @@ class DispatcherFactory implements FactoryInterface
     {
         $this->router = $router;
         $this->request = new Request();
-        $this->request->setRequestMethod($_SERVER['REQUEST_METHOD'])
+        $this->request->setRequestMethod(array_key_exists('REQUEST_METHOD', $_SERVER) ? $_SERVER['REQUEST_METHOD'] : 'GET')
                       ->setGetParams($this->router->getGetParams())
                       ->setParams($this->router->getParams())
                       ->setPostParams($_POST)

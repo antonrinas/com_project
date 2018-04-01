@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Администратор
- * Date: 01.04.2018
- * Time: 10:41
- */
 
 namespace Framework\Config;
 
@@ -18,23 +12,26 @@ class ModulesConfig implements ConfigInterface
 
     /**
      * ModulesConfig constructor.
+     * @param array $config
      * @throws ApplicationConfigException
      */
-    public function __construct()
+    public function __construct($config = [])
     {
-        $configPath = ROOT . DS . 'config' . DS . 'modules.php';
-        if (!file_exists($configPath)) {
-            throw new ApplicationConfigException("Modules config file $configPath was not found");
+        if (!$config) {
+            $configPath = ROOT . DS . 'config' . DS . 'modules.php';
+            if (!file_exists($configPath)) {
+                throw new ApplicationConfigException("Modules config file $configPath was not found");
+            }
+            $config = require (ROOT . DS . 'config' . DS . 'modules.php');
         }
-        $config = require (ROOT . DS . 'config' . DS . 'modules.php');
-        $this->fillAndChechConfig($config);
+        $this->fillAndCheckConfig($config);
     }
 
     /**
      * @param $config
      * @throws ApplicationConfigException
      */
-    private function fillAndChechConfig($config)
+    private function fillAndCheckConfig($config)
     {
         if (!is_array($config)) {
             throw new ApplicationConfigException("Modules config must be array");

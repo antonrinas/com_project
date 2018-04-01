@@ -4,6 +4,7 @@ use PHPUnit\Framework\TestCase;
 use Framework\Mvc\Controller\Dispatcher\DispatcherFactory;
 use Framework\Mvc\Controller\Dispatcher\DispatcherInterface;
 use Framework\FactoryInterface;
+use Framework\Mvc\Controller\Router\RouterInterface;
 
 class DispatcherFactoryTest extends TestCase
 {
@@ -12,7 +13,7 @@ class DispatcherFactoryTest extends TestCase
         echo PHP_EOL . " -- FRAMEWORK: DispatcherFactory tests" . PHP_EOL;
         echo PHP_EOL . "    ---- Can be created test" . PHP_EOL;
 
-        $dispatcherFactory = new DispatcherFactory();
+        $dispatcherFactory = new DispatcherFactory(new Router());
         $this->assertInstanceOf(
             DispatcherFactory::class,
             $dispatcherFactory
@@ -33,5 +34,21 @@ class DispatcherFactoryTest extends TestCase
             DispatcherInterface::class,
             $dispatcher
         );
+    }
+}
+
+class Router implements RouterInterface
+{
+    public function getGetParams(){}
+    public function getParams(){}
+    public function getMatchedRoute(){
+        return [
+            'url' => '/',
+            'request_method' => 'GET',
+            'module' => 'Main',
+            'namespace' => 'Controller',
+            'controller' => 'Index',
+            'method' => 'index',
+        ];
     }
 }

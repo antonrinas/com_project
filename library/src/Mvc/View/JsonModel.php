@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: админ
- * Date: 30.01.2018
- * Time: 13:52
- */
 
 namespace Framework\Mvc\View;
-
 
 class JsonModel implements JsonModelInterface
 {
@@ -27,7 +20,7 @@ class JsonModel implements JsonModelInterface
     /**
      * @param array $params
      *
-     * @return ViewModel
+     * @return JsonModel
      */
     public function setParams($params)
     {

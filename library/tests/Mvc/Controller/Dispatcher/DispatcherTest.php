@@ -3,42 +3,39 @@
 use PHPUnit\Framework\TestCase;
 use Framework\Mvc\Controller\Response\ResponseInterface;
 use Framework\Mvc\Controller\Request\RequestInterface;
-use Framework\Mvc\View\ViewModelInterface;
-use Framework\Mvc\View\JsonModelInterface;
-use Framework\Session\SessionInterface;
-use Framework\Instantiator\InstantiatorInterface;
+use Framework\Mvc\Controller\Router\RouterInterface;
 use Framework\Mvc\Controller\Dispatcher\Dispatcher;
-use Framework\Mvc\Controller\Dispatcher\DispatcherInterface;
+use Main\Controller\IndexController;
+use Framework\Mvc\View\ViewModelInterface;
 
 class DispatcherTest extends TestCase
 {
-    public function testCanBeCreated()
+    public function testCanDispatch()
     {
         echo PHP_EOL . " -- FRAMEWORK: Dispatcher tests" . PHP_EOL;
-        echo PHP_EOL . "    ---- Can be created test" . PHP_EOL;
-        $dispatcher = new Dispatcher(
-            new TestResponse(),
-            new TestViewModel(),
-            new TestJsonModel(),
-            new TestSession(),
-            new TestInstantiator()
-        );
+        echo PHP_EOL . "    ---- Can dispatch test" . PHP_EOL;
+
+        $controller = new IndexController();
+        $request = new TestRequest();
+        $router = new TestRouter();
+        $response = new TestResponse();
+        $viewModel = new TestViewModel();
+        $controller->setRequest($request)->setModuleConfig([])->setRoute($router->getMatchedRoute())->setView($viewModel);
+        $dispatcher = new Dispatcher($request, $router, $response, $controller);
+
         $this->assertInstanceOf(
-            DispatcherInterface::class,
-            $dispatcher
+            ResponseInterface::class,
+            $dispatcher->dispatch()
         );
-
-        return $dispatcher;
     }
+}
 
-    /**
-     * @param DispatcherInterface $dispatcher
-     * @depends clone testCanBeCreated
-     */
-    public function testCanSetGetConfig($dispatcher)
-    {
-        echo PHP_EOL . "    ---- Can set/get config test" . PHP_EOL;
-        $config = [
+class TestRouter implements RouterInterface
+{
+    public function getGetParams(){}
+    public function getParams(){}
+    public function getMatchedRoute(){
+        return [
             'url' => '/',
             'request_method' => 'GET',
             'module' => 'Main',
@@ -46,19 +43,6 @@ class DispatcherTest extends TestCase
             'controller' => 'Index',
             'method' => 'index',
         ];
-        $dispatcher->setConfig($config);
-        $this->assertSame($config, $dispatcher->getConfig());
-    }
-
-    /**
-     * @param DispatcherInterface $dispatcher
-     * @depends clone testCanBeCreated
-     */
-    public function testCanSetGetRequest($dispatcher)
-    {
-        echo PHP_EOL . "    ---- Can set/get request test" . PHP_EOL;
-        $dispatcher->setRequest(new TestRequest());
-        $this->assertTrue($dispatcher->getRequest() instanceof RequestInterface);
     }
 }
 
@@ -77,6 +61,26 @@ class TestResponse implements ResponseInterface
     public function __toString(){}
 }
 
+class TestRequest implements RequestInterface
+{
+    public function getRequestMethod(){}
+    public function setRequestMethod($requestMethod){}
+    public function getParams(){return [];}
+    public function setParams($params){}
+    public function getParam($name, $defaultValue){}
+    public function getGetParams(){return [];}
+    public function setGetParams($getParams){}
+    public function getGetParam($name, $defaultValue){}
+    public function getPostParams(){return [];}
+    public function setPostParams($postParams){}
+    public function getPostParam($name, $defaultValue){}
+    public function getCookies(){}
+    public function setCookies($cookies){}
+    public function getCookie($name, $defaultValue){}
+    public function getFiles(){}
+    public function setFiles($files){}
+}
+
 class TestViewModel implements ViewModelInterface
 {
     public function getParams(){}
@@ -92,51 +96,5 @@ class TestViewModel implements ViewModelInterface
     public function getViewPath(){}
     public function setViewPath($viewPath){}
     public function setNoEscape($noEscape){}
-    public function render(){}
-}
-
-class TestJsonModel implements JsonModelInterface
-{
-    public function getParams(){}
-    public function setParams($params){}
-    public function render(){}
-}
-
-class TestSession implements SessionInterface
-{
-    public function isExists($name){}
-    public function get($name, $defaultValue = null){}
-    public function set($name, $value){}
-    public function setUserData($user){}
-    public function getUserData(){}
-    public function clear(){}
-}
-
-class TestInstantiator implements InstantiatorInterface
-{
-
-
-    public function setFactoriesMap($factoriesMap){}
-    public function findFactory($className){}
-    public function instantiate($className){}
-}
-
-class TestRequest implements RequestInterface
-{
-    public function getRequestMethod(){}
-    public function setRequestMethod($requestMethod){}
-    public function getParams(){}
-    public function setParams($params){}
-    public function getParam($name, $defaultValue){}
-    public function getGetParams(){}
-    public function setGetParams($getParams){}
-    public function getGetParam($name, $defaultValue){}
-    public function getPostParams(){}
-    public function setPostParams($postParams){}
-    public function getPostParam($name, $defaultValue){}
-    public function getCookies(){}
-    public function setCookies($cookies){}
-    public function getCookie($name, $defaultValue){}
-    public function getFiles(){}
-    public function setFiles($files){}
+    public function render(){return 'test';}
 }
