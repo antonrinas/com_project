@@ -31,6 +31,15 @@ class ComposerStaticInit1c77778277ec86795e194de52f182b61
             'Pusher\\' => 7,
             'Psr\\Log\\' => 8,
         ),
+        'M' => 
+        array (
+            'Model\\' => 6,
+            'Main\\' => 5,
+        ),
+        'F' => 
+        array (
+            'Framework\\' => 10,
+        ),
         'D' => 
         array (
             'Doctrine\\Instantiator\\' => 22,
@@ -39,6 +48,10 @@ class ComposerStaticInit1c77778277ec86795e194de52f182b61
             'Doctrine\\Common\\Annotations\\' => 28,
             'Doctrine\\Common\\' => 16,
             'DeepCopy\\' => 9,
+        ),
+        'A' => 
+        array (
+            'Api\\' => 4,
         ),
     );
 
@@ -73,6 +86,18 @@ class ComposerStaticInit1c77778277ec86795e194de52f182b61
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
+        'Model\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/application/module/Model/src',
+        ),
+        'Main\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/application/module/Main/src',
+        ),
+        'Framework\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/library/src',
+        ),
         'Doctrine\\Instantiator\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
@@ -96,6 +121,10 @@ class ComposerStaticInit1c77778277ec86795e194de52f182b61
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
+        ),
+        'Api\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/application/module/Api/src',
         ),
     );
 
