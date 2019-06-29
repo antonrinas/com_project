@@ -10,7 +10,6 @@
 - based on my framework;
 - all classes are covered by tests;
 - event manager with pluggable observers (observers are registered automatically if it are exist in observer's DB table);
-- test changes;
 
 ### Installation
 
